@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Quiz-App - Interactive Quiz Application
 
 Professional quiz application for educators with live session management, automatic grading, and comprehensive statistics.
@@ -398,3 +399,7 @@ Built with ❤️ for education
 ---
 
 **Ready to create engaging quizzes!** 🎯
+=======
+# aide-quiz
+Online Quiz Application
+>>>>>>> origin/main
