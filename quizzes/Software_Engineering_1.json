@@ -1,0 +1,264 @@
+{
+  "title": "Software Engineering 1",
+  "language": "en",
+  "mediaPath": "Software_Engineering_1",
+  "questions": [
+    {
+      "id": "q1",
+      "keyword": "Architecture",
+      "text": "Which statements about layered software architectures are correct?",
+      "points": 1,
+      "options": [
+        {
+          "id": "a",
+          "text": "Higher layers should not directly access lower layers that are more than one layer below.",
+          "correct": true,
+          "reason": "This enforces strict layering and reduces coupling by preventing shortcuts that bypass architectural boundaries."
+        },
+        {
+          "id": "b",
+          "text": "Layered architectures completely eliminate cyclic dependencies.",
+          "correct": false,
+          "reason": "While layering reduces the risk of cycles, improper design or violations of layer rules can still introduce cyclic dependencies."
+        },
+        {
+          "id": "c",
+          "text": "Layered architectures make it easier to replace or modify individual layers independently.",
+          "correct": true,
+          "reason": "Clear interfaces between layers support independent evolution and substitution of layers."
+        },
+        {
+          "id": "d",
+          "text": "Layered architectures always provide the best runtime performance.",
+          "correct": false,
+          "reason": "Additional abstraction layers often introduce overhead, which can negatively impact performance."
+        }
+      ],
+      "reason": ""
+    },
+    {
+      "id": "q2",
+      "keyword": "Requirements",
+      "text": "Which of the following are examples of non-functional requirements?",
+      "points": 1,
+      "options": [
+        {
+          "id": "a",
+          "text": "The system shall authenticate users using two-factor authentication.",
+          "correct": false,
+          "reason": "This describes a concrete system behavior and is therefore a functional requirement."
+        },
+        {
+          "id": "b",
+          "text": "The system shall respond to user requests within 200 milliseconds under normal load.",
+          "correct": true,
+          "reason": "Response time constraints describe performance characteristics, which are non-functional requirements."
+        },
+        {
+          "id": "c",
+          "text": "The system shall be maintainable by a team of five developers.",
+          "correct": true,
+          "reason": "Maintainability is a quality attribute and thus a non-functional requirement."
+        },
+        {
+          "id": "d",
+          "text": "The system shall allow users to export reports as PDF files.",
+          "correct": false,
+          "reason": "This specifies a user-visible function and is therefore a functional requirement."
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "keyword": "Testing",
+      "text": "Which statements about unit testing are correct?",
+      "points": 1,
+      "options": [
+        {
+          "id": "a",
+          "text": "Unit tests should ideally test code in isolation from external systems.",
+          "correct": true,
+          "reason": "Isolating units helps ensure that test failures can be attributed to the unit under test."
+        },
+        {
+          "id": "b",
+          "text": "Unit tests are primarily intended to find integration defects.",
+          "correct": false,
+          "reason": "Integration defects are typically discovered by integration or system tests, not unit tests."
+        },
+        {
+          "id": "c",
+          "text": "Mock objects can be used to simulate dependencies in unit tests.",
+          "correct": true,
+          "reason": "Mocks replace real dependencies, allowing controlled and repeatable test scenarios."
+        },
+        {
+          "id": "d",
+          "text": "High unit test coverage guarantees defect-free software.",
+          "correct": false,
+          "reason": "Coverage metrics do not measure test quality or correctness, only which code was executed."
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "keyword": "UML",
+      "text": "Which UML diagram types are primarily used to model dynamic behavior?",
+      "points": 1,
+      "options": [
+        {
+          "id": "a",
+          "text": "Sequence diagrams",
+          "correct": true,
+          "reason": "Sequence diagrams show interactions and message flows over time."
+        },
+        {
+          "id": "b",
+          "text": "Class diagrams",
+          "correct": false,
+          "reason": "Class diagrams focus on static structure, not runtime behavior."
+        },
+        {
+          "id": "c",
+          "text": "State machine diagrams",
+          "correct": true,
+          "reason": "State machine diagrams model states and transitions triggered by events."
+        },
+        {
+          "id": "d",
+          "text": "Component diagrams",
+          "correct": false,
+          "reason": "Component diagrams describe system decomposition and dependencies at a structural level."
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "keyword": "Databases",
+      "text": "Which statements about database normalization are correct?",
+      "points": 1,
+      "options": [
+        {
+          "id": "a",
+          "text": "Normalization aims to reduce data redundancy.",
+          "correct": true,
+          "reason": "One of the primary goals of normalization is to eliminate redundant data storage."
+        },
+        {
+          "id": "b",
+          "text": "Highly normalized schemas always lead to better query performance.",
+          "correct": false,
+          "reason": "Normalization can increase the number of joins, which may negatively affect performance."
+        },
+        {
+          "id": "c",
+          "text": "Denormalization may be intentionally applied for performance reasons.",
+          "correct": true,
+          "reason": "Controlled denormalization can reduce join complexity and improve read performance."
+        },
+        {
+          "id": "d",
+          "text": "Normalization eliminates the need for database indexes.",
+          "correct": false,
+          "reason": "Indexes address query performance and access paths, which are independent of normalization."
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "keyword": "Code Metrics",
+      "text": "Which statements about cyclomatic complexity are correct?",
+      "points": 1,
+      "options": [
+        {
+          "id": "a",
+          "text": "Cyclomatic complexity measures the number of independent execution paths in code.",
+          "correct": true,
+          "reason": "It is defined based on the control flow graph and counts linearly independent paths."
+        },
+        {
+          "id": "b",
+          "text": "Lower cyclomatic complexity generally improves testability.",
+          "correct": true,
+          "reason": "Fewer execution paths typically require fewer test cases to achieve adequate coverage."
+        },
+        {
+          "id": "c",
+          "text": "Cyclomatic complexity directly measures runtime performance.",
+          "correct": false,
+          "reason": "The metric reflects structural complexity, not execution speed or resource usage."
+        },
+        {
+          "id": "d",
+          "text": "High cyclomatic complexity can indicate code that is difficult to maintain.",
+          "correct": true,
+          "reason": "Complex control flow often correlates with increased maintenance effort and defect risk."
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "keyword": "Embedded Systems",
+      "text": "Which characteristics are typical challenges in embedded software development?",
+      "points": 1,
+      "options": [
+        {
+          "id": "a",
+          "text": "Strict constraints on memory and CPU resources.",
+          "correct": true,
+          "reason": "Embedded systems often run on hardware with limited computational resources."
+        },
+        {
+          "id": "b",
+          "text": "Unlimited ability to update software after deployment.",
+          "correct": false,
+          "reason": "Many embedded systems are difficult or costly to update once deployed."
+        },
+        {
+          "id": "c",
+          "text": "Hard real-time requirements with deterministic timing constraints.",
+          "correct": true,
+          "reason": "Many embedded applications must meet strict timing guarantees."
+        },
+        {
+          "id": "d",
+          "text": "Complete hardware abstraction is always feasible.",
+          "correct": false,
+          "reason": "Low-level hardware interaction is often necessary, limiting full abstraction."
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "keyword": "Process Models",
+      "text": "Which statements about agile software development are correct?",
+      "points": 1,
+      "options": [
+        {
+          "id": "a",
+          "text": "Agile methods emphasize responding to change over following a fixed plan.",
+          "correct": true,
+          "reason": "This is a core principle of the Agile Manifesto."
+        },
+        {
+          "id": "b",
+          "text": "Agile development eliminates the need for documentation.",
+          "correct": false,
+          "reason": "Agile values working software more than comprehensive documentation, but does not reject documentation entirely."
+        },
+        {
+          "id": "c",
+          "text": "Agile methods rely on frequent feedback from stakeholders.",
+          "correct": true,
+          "reason": "Continuous feedback helps align development with stakeholder needs."
+        },
+        {
+          "id": "d",
+          "text": "Agile approaches are unsuitable for large or complex systems.",
+          "correct": false,
+          "reason": "While challenging, agile methods can be scaled using appropriate frameworks and practices."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "title": "Unser Erdball",
+  "language": "de",
+  "imagePath": "Unser_Erdball",
+  "questions": [
+    {
+      "id": "q5",
+      "keyword": "Extreme",
+      "text": "Welcher Punkt der Erde ist am weitesten vom Erdmittelpunkt entfernt?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Mount Everest",
+          "image": "Mount Everest.jpg",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Toter Meeresspiegel",
+          "reason": "",
+          "correct": false,
+          "image": "Totes Meer.jpg"
+        },
+        {
+          "id": "c",
+          "text": "Gipfel des Chimborazo (Ecuador)",
+          "image": "Chimborazo.jpg",
+          "reason": "",
+          "correct": true
+        },
+        {
+          "id": "d",
+          "text": "Nordpol",
+          "reason": "",
+          "correct": false
+        }
+      ],
+      "points": 1,
+      "reason": "Durch die **Abplattung der Erde** liegt der Chimborazo (ganz nahe am Äquator)  weiter vom Erdmittelpunkt entfernt als der Mount Everest (28° nördliche Breite).",
+      "reasonImage": "Abplattung.png"
+    },
+    {
+      "id": "q7",
+      "keyword": "Oberfläche",
+      "image": "Faust.png",
+      "text": "Wenn man die Erde auf die Größe einer Faust verkleinern würde ..",
+      "reason": "9 km höchster Berg im Verhältnis zu 12.000 km Erddurchmesser - das ist weniger als 1/10. Millimeter! Da passt die Billardkugel am besten als Vergleich.",
+      "options": [
+        {
+          "id": "a",
+          "text": ".. wäre sie ungefähr so rauh wie ein Tennisball",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": ".. wäre sie ungefähr so glatt wie die Schale einer Kartoffel",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": ".. wäre sie ungefähr so glatt wie eine Billardkugel",
+          "reason": "",
+          "correct": true
+        }
+      ],
+      "points": 1
+    },
+    {
+      "id": "q1",
+      "keyword": "Erdaufbau",
+      "text": "Welcher Teil der Erde macht den größten Anteil ihres Volumens aus?",
+      "image": "Globus.png",
+      "reason": "Der Erdmantel macht rund **84 % des Erdvolumens** aus und ist damit der mit Abstand größte Teil der Erde.",
+      "reasonImage": "Schalen.svg",
+      "options": [
+        {
+          "id": "a",
+          "text": "Erdkruste",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Erdmantel",
+          "reason": "",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "Innerer Erdkern",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "Äußerer Erdkern",
+          "reason": "",
+          "correct": false
+        }
+      ],
+      "points": 1
+    },
+    {
+      "id": "q2",
+      "keyword": "Wasser",
+      "text": "![](Flacherde.jpg) Wie viel Prozent der Erdoberfläche sind ungefähr von Wasser bedeckt?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Etwa 50 %",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Etwa 60 %",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "Etwa 70 %",
+          "reason": "",
+          "correct": true
+        },
+        {
+          "id": "d",
+          "text": "Etwa 80 %",
+          "reason": "",
+          "correct": false
+        }
+      ],
+      "points": 1,
+      "reason": "Rund **71 % der Erdoberfläche** sind von Ozeanen, Meeren und Seen bedeckt."
+    },
+    {
+      "id": "q3",
+      "keyword": "Gebirge",
+      "text": "Welches ist der längste Gebirgszug der Erde?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Himalaya",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Anden",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "Rocky Mountains",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "Mittelatlantischer Rücken",
+          "reason": "",
+          "correct": true
+        }
+      ],
+      "points": 1,
+      "reason": "Der **Mittelatlantische Rücken** ist über 60 000 km lang und verläuft größtenteils unter Wasser."
+    },
+    {
+      "id": "q4",
+      "keyword": "Atmosphäre",
+      "text": "Warum erscheint der Himmel auf der Erde tagsüber meist blau?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Durch die Reflexion der Ozeane",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Durch die Streuung des Sonnenlichts in der Atmosphäre",
+          "reason": "",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "Durch die Eigenfarbe der Luft",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "Durch das Erdmagnetfeld",
+          "reason": "",
+          "correct": false
+        }
+      ],
+      "points": 1,
+      "reason": "Kurzwelliges blaues Licht wird in der Atmosphäre besonders stark gestreut (**Rayleigh-Streuung**)."
+    },
+    {
+      "id": "q6",
+      "keyword": "Jahreszeiten",
+      "text": "Welche Bewegung der Erde ist hauptsächlich für die Entstehung der Jahreszeiten verantwortlich?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Die Rotation der Erde um die eigene Achse",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Die elliptische Form der Umlaufbahn",
+          "reason": "",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "Die Neigung der Erdachse",
+          "reason": "",
+          "correct": true
+        },
+        {
+          "id": "d",
+          "text": "Schwankungen der Sonnenaktivität",
+          "reason": "",
+          "correct": false
+        }
+      ],
+      "points": 1,
+      "reason": "Die **Achsneigung von etwa 23,5°** sorgt für unterschiedlich starke Sonneneinstrahlung im Jahresverlauf."
+    }
+  ]
+}

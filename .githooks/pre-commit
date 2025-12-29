@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# Pre-commit hook: Validates documentation consistency
+#
+# Installation: git config core.hooksPath .githooks
+#
+
+echo "Running pre-commit validations..."
+
+# Validate DOCS_FILE_LIST
+cd server && node scripts/validate-docs-list.js
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "Commit aborted. Fix the issues above and try again."
+    exit 1
+fi
+
+# Check if router files are being committed
+cd ..
+ROUTER_CHANGES=$(git diff --cached --name-only | grep "^server/routers/.*\.js$")
+
+if [ -n "$ROUTER_CHANGES" ]; then
+    echo ""
+    echo "Router changes detected - regenerating API docs..."
+
+    # Save current state of API_REFERENCE.md
+    API_DOC="public/docs/API_REFERENCE.md"
+    OLD_HASH=""
+    if [ -f "$API_DOC" ]; then
+        OLD_HASH=$(git hash-object "$API_DOC")
+    fi
+
+    # Regenerate API docs
+    cd server && npm run docs:api --silent
+    cd ..
+
+    # Check if API docs changed
+    NEW_HASH=$(git hash-object "$API_DOC")
+
+    if [ "$OLD_HASH" != "$NEW_HASH" ]; then
+        # Check if API_REFERENCE.md is already staged
+        STAGED=$(git diff --cached --name-only | grep "^public/docs/API_REFERENCE.md$")
+
+        if [ -z "$STAGED" ]; then
+            echo ""
+            echo "⚠️  API_REFERENCE.md was regenerated but not staged."
+            echo "   Run: git add public/docs/API_REFERENCE.md"
+            echo ""
+            echo "Commit aborted. Stage the updated docs and try again."
+            exit 1
+        fi
+    fi
+
+    echo "✅ API documentation is up to date."
+fi
+
+echo ""
+exit 0

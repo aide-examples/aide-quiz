@@ -1,0 +1,257 @@
+/**
+ * Tech Docs Modal - Specific Styles
+ * Requires: modal-base.css
+ */
+
+/* ============================================================================
+   Tech Docs Modal Structure
+   ============================================================================ */
+
+.tech-docs-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tech-docs-modal.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Overlay */
+.tech-docs-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+/* Modal Content */
+.tech-docs-modal-content {
+  position: relative;
+  margin: 40px auto;
+  max-width: 1000px;
+  max-height: calc(100vh - 80px);
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+   Header with Breadcrumb Navigation
+   ============================================================================ */
+
+.tech-docs-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+  border-bottom: 2px solid #e9ecef;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 16px 16px 0 0;
+}
+
+.tech-docs-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.breadcrumb-icon {
+  font-size: 24px;
+}
+
+.breadcrumb-text {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Clickable home breadcrumb */
+.breadcrumb-home {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.breadcrumb-home:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.breadcrumb-separator {
+  opacity: 0.7;
+  margin: 0 4px;
+}
+
+.breadcrumb-current {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ============================================================================
+   Action Buttons
+   ============================================================================ */
+
+.tech-docs-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Action buttons now use .modal-icon-btn from modal-base.css */
+
+/* ============================================================================
+   Body
+   ============================================================================ */
+
+.tech-docs-modal-body {
+  padding: 32px;
+  overflow-y: auto;
+  flex: 1;
+  max-height: calc(100vh - 200px);
+}
+
+/* ============================================================================
+   Loading
+   ============================================================================ */
+
+.tech-docs-modal-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+  color: #6c757d;
+}
+
+.tech-docs-modal-loading p {
+  font-size: 16px;
+  color: #6c757d;
+}
+
+/* ============================================================================
+   Error
+   ============================================================================ */
+
+.tech-docs-error {
+  padding: 40px;
+  text-align: center;
+  color: #666;
+}
+
+.tech-docs-error h3 {
+  color: #dc3545;
+  margin-bottom: 16px;
+}
+
+.tech-docs-error-details {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: #999;
+  margin-top: 8px;
+}
+
+.tech-docs-error .btn {
+  margin-top: 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tech-docs-error .btn:hover {
+  background: #764ba2;
+  transform: translateY(-1px);
+}
+
+/* ============================================================================
+   Scrollbar
+   ============================================================================ */
+
+.tech-docs-modal-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.tech-docs-modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.tech-docs-modal-body::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 10px;
+}
+
+.tech-docs-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #764ba2;
+}
+
+/* ============================================================================
+   Responsive
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .tech-docs-modal-content {
+    margin: 20px auto;
+    max-width: 95%;
+    max-height: calc(100vh - 40px);
+  }
+
+  .tech-docs-modal-header {
+    padding: 16px 20px;
+  }
+
+  .tech-docs-modal-body {
+    padding: 20px;
+  }
+
+  .breadcrumb-icon {
+    font-size: 20px;
+  }
+
+  .breadcrumb-text {
+    font-size: 16px;
+  }
+
+  .breadcrumb-current {
+    font-size: 12px;
+    padding: 2px 8px;
+  }
+
+}

@@ -1,0 +1,207 @@
+/**
+ * Help Modal - Specific Styles
+ * Requires: modal-base.css
+ */
+
+/* ============================================================================
+   Help Modal Structure
+   ============================================================================ */
+
+.help-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.help-modal.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Overlay */
+.help-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+/* Modal Content */
+.help-modal-content {
+  position: relative;
+  margin: 40px auto;
+  max-width: 900px;
+  max-height: calc(100vh - 80px);
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+   Header
+   ============================================================================ */
+
+.help-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+  border-bottom: 2px solid #e9ecef;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 16px 16px 0 0;
+}
+
+.help-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.help-breadcrumb .breadcrumb-icon {
+  font-size: 24px;
+}
+
+.help-breadcrumb .breadcrumb-text {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.help-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Action buttons now use .modal-icon-btn from modal-base.css */
+
+/* ============================================================================
+   Body
+   ============================================================================ */
+
+.help-modal-body {
+  padding: 32px;
+  overflow-y: auto;
+  flex: 1;
+  max-height: calc(100vh - 200px);
+}
+
+/* ============================================================================
+   Loading
+   ============================================================================ */
+
+.help-modal-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+  color: #6c757d;
+}
+
+.help-modal-loading p {
+  font-size: 16px;
+  color: #6c757d;
+}
+
+/* ============================================================================
+   Error
+   ============================================================================ */
+
+.help-error {
+  padding: 40px;
+  text-align: center;
+  color: #666;
+}
+
+.help-error h3 {
+  color: #dc3545;
+  margin-bottom: 16px;
+}
+
+.help-error-details {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: #999;
+  margin-top: 8px;
+}
+
+/* ============================================================================
+   Scrollbar
+   ============================================================================ */
+
+.help-modal-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.help-modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.help-modal-body::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 10px;
+}
+
+.help-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #764ba2;
+}
+
+/* ============================================================================
+   Responsive
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .help-modal-content {
+    margin: 20px auto;
+    max-width: 95%;
+    max-height: calc(100vh - 40px);
+  }
+
+  .help-modal-header {
+    padding: 16px 20px;
+  }
+
+  .help-modal-body {
+    padding: 20px;
+  }
+
+  .help-breadcrumb .breadcrumb-icon {
+    font-size: 20px;
+  }
+
+  .help-breadcrumb .breadcrumb-text {
+    font-size: 16px;
+  }
+
+  .help-action-btn .action-text {
+    display: none;
+  }
+}

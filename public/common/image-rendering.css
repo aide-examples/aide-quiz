@@ -1,0 +1,218 @@
+/**
+ * Image Layout CSS
+ * Images displayed to the left of text, vertically centered
+ * Multiple images stacked vertically
+ */
+
+/* Question with images */
+.question-with-images {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.question-images {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.question-images img {
+  max-width: 200px;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border: 1px solid #e0e0e0;
+}
+
+.question-text {
+  flex: 1;
+  min-width: 0;  /* Allows text wrapping */
+}
+
+/* Option with images */
+.option-with-images {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-with-images:hover {
+  border-color: #667eea;
+  background-color: #f8f9ff;
+}
+
+.option-with-images.selected {
+  border-color: #667eea;
+  background-color: #f0f2ff;
+}
+
+.option-with-images.correct {
+  border-color: #28a745;
+  background-color: #f0fff4;
+}
+
+.option-with-images.incorrect {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.option-checkbox {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.option-images {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.option-images img {
+  max-width: 150px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  border: 1px solid #e0e0e0;
+}
+
+.option-text {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+/* Reason with images */
+.reason-with-images {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #667eea;
+  border-radius: 6px;
+}
+
+.reason-images {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.reason-images img {
+  max-width: 150px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  border: 1px solid #e0e0e0;
+}
+
+.reason-text {
+  flex: 1;
+  min-width: 0;
+  color: #495057;
+}
+
+/* Legacy layout without images (backwards compatible) */
+.question-text-only {
+  margin-bottom: 24px;
+}
+
+.option-text-only {
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reason-text-only {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #667eea;
+  border-radius: 6px;
+  color: #495057;
+}
+
+/* Responsive: Stack on mobile */
+@media (max-width: 768px) {
+  .question-with-images,
+  .option-with-images,
+  .reason-with-images {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .question-images img,
+  .option-images img,
+  .reason-images img {
+    max-width: 100%;
+    max-height: 300px;
+  }
+  
+  .option-with-images {
+    flex-direction: row;  /* Keep checkbox left on mobile */
+    flex-wrap: wrap;
+  }
+  
+  .option-checkbox {
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+  
+  .option-images {
+    width: 100%;
+    order: 3;
+    margin-top: 8px;
+  }
+  
+  .option-text {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+/* Image loading state */
+.question-images img,
+.option-images img,
+.reason-images img {
+  background: #f0f0f0;
+}
+
+.question-images img[src=""],
+.option-images img[src=""],
+.reason-images img[src=""] {
+  display: none;
+}
+
+/* Image error state */
+.question-images img.error,
+.option-images img.error,
+.reason-images img.error {
+  border-color: #dc3545;
+  opacity: 0.5;
+}

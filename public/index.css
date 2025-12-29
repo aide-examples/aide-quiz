@@ -1,0 +1,231 @@
+.landing-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 60px 40px;
+    background: #ddd;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* AIDE Introduction Section */
+.aide-intro {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 40px;
+    border-left: 4px solid #667eea;
+}
+
+.aide-logo {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.aide-text {
+    flex: 1;
+}
+
+.aide-text p {
+    margin: 0 0 12px 0;
+    color: #495057;
+    line-height: 1.6;
+}
+
+.aide-text a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.aide-text a:hover {
+    text-decoration: underline;
+}
+
+.aide-cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.aide-link {
+    display: inline-block;
+    background: #f8f9fa;
+    border: 2px solid #667eea;
+    color: #667eea !important;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.aide-link:hover {
+    background: #667eea;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.app-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    border: 2px solid transparent;
+}
+
+.app-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+    border-color: #667eea;
+}
+
+.app-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.app-card h2 {
+    color: #667eea;
+    margin: 0 0 6px 0;
+    font-size: 18px;
+}
+
+.app-card p {
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.app-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+.badge-student {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.badge-teacher {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.info-section {
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 40px;
+}
+
+.info-section h3 {
+    color: #495057;
+    margin-top: 0;
+}
+
+.feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.feature-icon {
+    font-size: 24px;
+}
+
+@media (max-width: 768px) {
+    .landing-container {
+        margin: 20px;
+        padding: 32px 24px;
+        border-radius: 16px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .aide-intro {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .aide-logo {
+        width: 80px;
+        margin: 0 auto;
+    }
+
+    .aide-cta {
+        justify-content: center;
+    }
+
+    .apps-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .landing-container {
+    margin: 10px;
+    padding: 24px 16px;
+    border-radius: 12px;
+    }
+    
+    .hero h1 {
+    font-size: 32px;
+    }
+}

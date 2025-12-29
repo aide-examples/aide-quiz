@@ -1,0 +1,194 @@
+/* ================================
+   QUESTION NAVIGATION
+   ================================ */
+
+.question-nav-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.question-nav {
+  flex: 1;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  padding: 4px;
+}
+
+.question-nav::-webkit-scrollbar {
+  height: 6px;
+}
+
+.question-nav::-webkit-scrollbar-track {
+  background: #e9ecef;
+  border-radius: 3px;
+}
+
+.question-nav::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 3px;
+}
+
+/* Navigation Items */
+.nav-item {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  padding: 8px 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  color: #495057;
+  flex-shrink: 0;
+}
+
+.nav-item:hover {
+  border-color: #667eea;
+  background: #f0f3ff;
+  transform: translateY(-2px);
+}
+
+.nav-item.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+  font-weight: 600;
+}
+
+.nav-item.active:hover {
+  background: #5568d3;
+  border-color: #5568d3;
+}
+
+/* Navigation Arrows */
+.nav-arrow {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  color: #667eea;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.nav-arrow:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+/* Add Button */
+.nav-add-btn {
+  background: #f0f0f0;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px;
+  color: #6c757d;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.nav-add-btn:hover {
+  background: #28a745;
+  color: white;
+  border-color: #28a745;
+  transform: scale(1.1);
+}
+
+/* Delete Quiz Button */
+.delete-quiz-btn {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: none; /* Initially hidden */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.delete-quiz-btn.visible {
+  display: flex; /* Show when quiz is loaded */
+}
+
+.delete-quiz-btn:hover {
+  background: #dc3545;
+  color: white;
+  border-color: #dc3545;
+  transform: scale(1.05);
+}
+
+.delete-quiz-btn:active {
+  transform: scale(0.95);
+}
+
+/* Drag & Drop - Navigation Items */
+.nav-item.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
+.nav-item.drag-over-left {
+  border-left: 3px solid #667eea;
+}
+
+.nav-item.drag-over-right {
+  border-right: 3px solid #667eea;
+}
+
+/* Drag & Drop - Option Cards */
+.option-card.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
+.option-card.drag-over-top {
+  border-top: 3px solid #667eea;
+}
+
+.option-card.drag-over-bottom {
+  border-bottom: 3px solid #667eea;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+  .question-nav-wrapper {
+    padding: 6px;
+  }
+  
+  .nav-arrow {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+  
+  .nav-item {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz - Participant</title>
+
+  <!-- Common CSS Modules -->
+  <link rel="stylesheet" href="../common/base.css">
+  <link rel="stylesheet" href="../common/forms.css">
+  <link rel="stylesheet" href="../common/utilities.css">
+  <link rel="stylesheet" href="../common/header.css">
+  <link rel="stylesheet" href="../common/image-layout.css">
+
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="css/quiz.css">
+
+  <!-- Validation CSS -->
+  <link rel="stylesheet" href="../test/validation.css">
+
+  <!-- Modal System CSS -->
+  <link rel="stylesheet" href="../help/modal-base.css">
+  <link rel="stylesheet" href="../help/help-modal.css">
+  <link rel="stylesheet" href="../help/modal-search.css">
+  <link rel="stylesheet" href="../help/tech-docs-modal.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Join Screen -->
+    <div id="join">
+      <h1 id="quizMainHeading">Take Quiz</h1>
+      <h3 id="quizSubtitle">Select your session and start the quiz</h3>
+
+      <div class="form-group">
+        <label id="sessionLabel" for="sessionSelect">Select session:</label>
+        <div class="session-select-wrapper">
+          <select id="sessionSelect"></select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label id="nameLabel" for="code">Your name / code:</label>
+        <input type="text" id="code" placeholder="Your username" maxlength="100">
+        <small class="validation-message" id="codeError" style="display:none;"></small>
+        <div id="codeInfo" class="user-code-info">A random code was generated for you</div>
+      </div>
+
+      <button id="joinBtn" class="btn btn-primary">start quiz</button>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz" style="display:none;">
+      <h2 id="quizTitle"></h2>
+
+      <div class="question-counter" id="questionCounter"></div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="question-area" id="questionArea"></div>
+
+      <button id="nextBtn" class="btn btn-primary">next question</button>
+    </div>
+  </div>
+
+  <!-- Vendor Libraries (non-module) -->
+  <script src="../vendor/marked/marked.min.js"></script>
+  <script src="../vendor/polyglot/polyglot.min.js"></script>
+  <script src="../vendor/mermaid/mermaid.min.js"></script>
+
+  <!-- Validation System (non-module, sets window.ObjectValidator etc.) -->
+  <script src="../shared/validation/ValidationError.js"></script>
+  <script src="../shared/validation/ObjectValidator.js"></script>
+
+  <!-- Main Application (ES Module) -->
+  <script type="module" src="js/QuizPage.js"></script>
+
+  <!-- Help System (ES Module) -->
+  <script type="module">
+    import { HelpModal } from '../help/HelpModal.js';
+    import { TechDocsModal } from '../help/TechDocsModal.js';
+
+    document.addEventListener('DOMContentLoaded', function() {
+      window.techDocsModal = new TechDocsModal('INDEX.md');
+      window.helpModal = new HelpModal('README.md', '?', window.techDocsModal);
+      window.techDocsModal.helpModal = window.helpModal;
+    });
+  </script>
+</body>
+</html>

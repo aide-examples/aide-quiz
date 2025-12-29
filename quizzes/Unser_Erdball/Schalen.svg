@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="600" version="1.1" xmlns="http://www.w3.org/2000/svg">
+ <circle cx="300" cy="300" r="293.3"/>
+ <circle cx="300" cy="300" r="290.99" fill="#f00"/>
+ <circle cx="300" cy="300" r="270.28" fill="#ff3f00"/>
+ <circle cx="300" cy="300" r="247.26" fill="#ff7f00"/>
+ <circle cx="300" cy="300" r="159.79" fill="#ffbf00"/>
+ <circle cx="300" cy="300" r="58.512" fill="#ff0"/>
+ <g stroke="#000" stroke-linejoin="round">
+  <path d="m67.604 535.7 23.145-27.384" fill="none" stroke-linecap="round"/>
+  <path d="m82.928 511.96 9.0865-5.1632-3.5768 9.8198c-0.61492-2.5715-2.846-4.4453-5.5097-4.6567z"/>
+  <path d="m75.823 52.217 32.703 42.101" fill="none" stroke-linecap="round"/>
+  <path d="m106.58 85.917 3.1686 9.9589-8.8656-5.5336c2.6431-0.06879 4.9384-1.8632 5.6971-4.4253z"/>
+  <path d="m497.01 50.851-44.122 38.142" fill="none" stroke-linecap="round"/>
+  <path d="m461.17 86.603-9.7796 3.6862 5.0617-9.1436c0.2072 2.636 2.1195 4.8342 4.7179 5.4576z"/>
+ </g>
+ <g font-family="'DejaVu Sans'" font-size="20px" text-anchor="middle">
+  <text><tspan x="66" y="551">Erdkruste</tspan><tspan x="66" y="571">0-35 km</tspan></text>
+  <text><tspan x="76" y="28">Oberer Mantel</tspan><tspan x="76" y="48">35-410 km</tspan></text>
+  <text><tspan x="511" y="26">Übergangszone</tspan><tspan x="511" y="46">410-660 km</tspan></text>
+  <text><tspan x="299" y="101">Unterer Mantel</tspan><tspan x="299" y="121">660-2900 km</tspan></text>
+  <text><tspan x="300" y="201">Äußerer Erdkern</tspan><tspan x="300" y="220">2900-5100 km</tspan></text>
+  <text><tspan x="300" y="277">Innerer</tspan><tspan x="300" y="297">Kern</tspan><tspan x="300" y="316">5100-</tspan><tspan x="300" y="336">6371 km</tspan></text>
+ </g>
+</svg>

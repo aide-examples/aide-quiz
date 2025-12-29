@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Editor</title>
+  
+  <!-- Common CSS Modules -->
+  <link rel="stylesheet" href="../common/base.css">
+  <link rel="stylesheet" href="../common/forms.css">
+  <link rel="stylesheet" href="../common/utilities.css">
+  <link rel="stylesheet" href="../common/header.css">
+  
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/editor-media.css">
+  <link rel="stylesheet" href="css/editor-image-dropzone.css">
+  <!-- Modal System CSS -->
+  <link rel="stylesheet" href="../help/modal-base.css">
+  <link rel="stylesheet" href="../help/help-modal.css">
+  <link rel="stylesheet" href="../help/modal-search.css">
+  <link rel="stylesheet" href="../help/tech-docs-modal.css">
+</head>
+<body>
+  <div class="container">
+    <div id="loginScreen">
+      <h1>🔒 Quiz Editor</h1>
+      <h3 id="loginTitle">Teacher Login</h3>
+      <input type="password" id="passwordInput" placeholder="Password">
+      <button id="loginButton" class="btn btn-primary" onclick="window.quizEditor.sessionManager.login()" disabled>login</button>
+      <div id="loginError" class="error-message"></div>
+    </div>
+
+    <div id="editorScreen" style="display:none;">
+      <div class="editor-header">
+        <h1>📝 Quiz Editor</h1>
+        <button id="logoutBtn" class="btn btn-secondary" onclick="window.quizEditor.sessionManager.logout()">logout</button>
+      </div>
+
+      <div class="toolbar">
+        <select id="quizSelect" onchange="window.quizEditor.sessionManager.loadSelectedQuiz()">
+          <option value="_placeholder" selected disabled>Open or create new quiz...</option>
+        </select>
+        <button class="btn btn-primary" onclick="window.quizEditor.dataSync.toggleMode()">
+          <span id="modeToggleText">JSON mode</span>
+        </button>
+        <button id="mediaBtn" class="btn btn-primary" onclick="window.quizEditor.mediaManager.open()">📁 media</button>
+        <button id="saveBtn" class="btn btn-success" onclick="window.quizEditor.dataSync.saveQuiz()">💾 save</button>
+        <button id="startSessionBtn" class="btn btn-secondary" onclick="window.quizEditor.sessionManager.createSession()">🚀 start session</button>
+      </div>
+
+      <!-- Create Quiz Section (only visible when "Neues Quiz erstellen" is selected) -->
+      <div id="createQuizSection" class="create-quiz-section" style="display:none;">
+        <input type="text"
+               id="quizTitle"
+               class="create-quiz-input"
+               placeholder="Enter quiz title..."
+               title="Quiz title"
+               maxlength="200">
+        <small class="validation-message" id="quizTitleError" style="display:none;"></small>
+        <button id="createBtn" class="btn btn-primary" onclick="window.quizEditor.sessionManager.createQuiz()">
+          ➕ create
+        </button>
+      </div>
+
+      <div id="sessionInfo" class="session-info" style="display:none;">
+        Session: <strong id="sessionName"></strong>
+      </div>
+
+      <div id="uiMode" class="edit-mode">
+        <!-- Question Navigation -->
+        <div class="question-nav-wrapper">
+          <button class="nav-arrow nav-arrow-left" onclick="window.quizEditor.navigator.scroll(-1)">‹</button>
+          <div class="question-nav" id="questionNav"></div>
+          <button class="nav-arrow nav-arrow-right" onclick="window.quizEditor.navigator.scroll(1)">›</button>
+          <button id="deleteQuizBtn"
+                  class="delete-quiz-btn"
+                  onclick="window.quizEditor.sessionManager.deleteQuiz()"
+                  title="delete quiz (including all sessions and submissions)">
+            🗑️
+          </button>
+        </div>
+        
+        <div id="questionsContainer"></div>
+      </div>
+
+      <div id="jsonMode" class="edit-mode" style="display:none;">
+        <textarea id="jsonEditor"></textarea>
+        <button id="applyJsonBtn" class="btn btn-primary" onclick="window.quizEditor.dataSync.applyJSON()">apply JSON</button>
+      </div>
+
+      <!-- Media Manager Mode (Fullscreen like JSON Mode) -->
+      <div id="mediaMode" class="edit-mode" style="display:none;">
+        <div class="media-manager-header">
+          <h2 id="manageMediaTitle">📁 Manage Media</h2>
+          <button id="backToQuizBtn" class="btn btn-secondary" onclick="window.quizEditor.mediaManager.close()">↶ back to quiz</button>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-section">
+          <div id="mediaDropZone" class="drop-zone">
+            <div class="drop-zone-content">
+              <div class="drop-zone-icon">📤</div>
+              <div class="drop-zone-text">
+                <strong id="dropZoneTitle">Drag files here</strong><br>
+                <span id="dropZoneHint">or drag image URL from browser</span><br>
+                <span id="dropZoneFormats" class="drop-zone-hint">Supported: PNG, JPG, GIF, SVG, WebP, MP4, WebM, MP3, WAV, OGG</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="upload-controls">
+            <div class="upload-control-group">
+              <input type="file" id="mediaFileInput" accept="image/*,video/*,audio/*" multiple style="display:none;" onchange="window.quizEditor.mediaManager.handleFileInput()">
+              <button id="chooseFilesBtn" class="btn btn-primary" onclick="document.getElementById('mediaFileInput').click()">
+                📂 choose files
+              </button>
+            </div>
+
+            <div class="upload-control-group url-input-group">
+              <input type="text" id="mediaUrlInput" placeholder="https://example.com/image.jpg">
+              <button id="openUrlBtn" class="btn btn-primary" onclick="window.quizEditor.mediaManager.handleUrlInput()">
+                🌐 open from URL
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <hr class="media-separator">
+
+        <!-- Media Grid -->
+        <div id="mediaGrid" class="media-grid">
+          <!-- Populated by MediaManager.render() -->
+        </div>
+      </div>
+
+      <div id="message" class="message"></div>
+    </div>
+
+  </div>
+
+  <!-- External Dependencies -->
+  <script src="../vendor/marked/marked.min.js"></script>
+
+  <!-- CodeMirror 5 for JSON Editor -->
+  <link rel="stylesheet" href="../vendor/codemirror/css/codemirror.min.css">
+  <link rel="stylesheet" href="../vendor/codemirror/css/dracula.min.css">
+  <script src="../vendor/codemirror/js/codemirror.min.js"></script>
+  <script src="../vendor/codemirror/mode/javascript.min.js"></script>
+  <script src="../vendor/codemirror/addon/matchbrackets.min.js"></script>
+  <script src="../vendor/codemirror/addon/closebrackets.min.js"></script>
+  <script src="../vendor/codemirror/addon/foldcode.min.js"></script>
+  <script src="../vendor/codemirror/addon/foldgutter.min.js"></script>
+  <script src="../vendor/codemirror/addon/brace-fold.min.js"></script>
+  <link rel="stylesheet" href="../vendor/codemirror/css/foldgutter.min.css">
+  
+  <!-- Vendor Libraries (non-module) -->
+  <script src="../vendor/polyglot/polyglot.min.js"></script>
+
+  <!-- Validation System (non-module, sets window.ObjectValidator etc.) -->
+  <link rel="stylesheet" href="../test/validation.css">
+  <script src="../shared/validation/ValidationError.js"></script>
+  <script src="../shared/validation/ObjectValidator.js"></script>
+
+  <!-- Main Application (ES Module) -->
+  <script type="module" src="js/QuizEditor.js"></script>
+  
+  <!-- Mermaid for UML Diagrams -->
+  <script src="../vendor/mermaid/mermaid.min.js"></script>
+  
+  <!-- Help System -->
+  <script type="module">
+    import { HelpModal } from '../help/HelpModal.js';
+    import { TechDocsModal } from '../help/TechDocsModal.js';
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize both modals with cross-references
+      window.techDocsModal = new TechDocsModal('INDEX.md');
+      window.helpModal = new HelpModal('README.md', '?', window.techDocsModal);
+
+      // Link them together
+      window.techDocsModal.helpModal = window.helpModal;
+    });
+  </script>
+
+  <!-- i18n for static HTML elements -->
+  <script type="module">
+    import { i18n, appReady } from '../common/i18n.js';
+
+    appReady.then(() => {
+      const t = i18n.t.bind(i18n);
+
+      // Buttons
+      document.getElementById('loginButton').textContent = t('btn_login');
+      document.getElementById('logoutBtn').textContent = t('btn_logout');
+      document.getElementById('mediaBtn').textContent = t('btn_media');
+      document.getElementById('saveBtn').textContent = t('btn_save');
+      document.getElementById('startSessionBtn').textContent = t('btn_start_session');
+      document.getElementById('applyJsonBtn').textContent = t('btn_apply_json');
+      document.getElementById('backToQuizBtn').textContent = t('btn_back_to_quiz');
+      document.getElementById('createBtn').textContent = t('btn_create');
+      document.getElementById('chooseFilesBtn').textContent = t('btn_choose_files');
+      document.getElementById('openUrlBtn').textContent = t('btn_open_url');
+
+      // Labels and titles
+      document.getElementById('loginTitle').textContent = t('editor_teacher_login');
+      document.getElementById('quizTitle').placeholder = t('editor_quiz_title_placeholder');
+      document.getElementById('manageMediaTitle').textContent = t('editor_manage_media');
+      document.getElementById('dropZoneTitle').textContent = t('editor_drop_zone_title');
+      document.getElementById('dropZoneHint').textContent = t('editor_drop_zone_hint');
+      document.getElementById('dropZoneFormats').textContent = t('editor_drop_zone_formats');
+      document.getElementById('deleteQuizBtn').title = t('editor_delete_quiz_title');
+    });
+  </script>
+</body>
+</html>

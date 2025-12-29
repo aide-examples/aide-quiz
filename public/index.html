@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIDE Quiz - Home</title>
+  
+  <!-- Common CSS Modules -->
+  <link rel="stylesheet" href="common/base.css">
+  <link rel="stylesheet" href="common/forms.css">
+  <link rel="stylesheet" href="common/utilities.css">
+  <link rel="stylesheet" href="common/header.css">
+  <link rel="stylesheet" href="common/image-layout.css">
+  
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="index.css">
+  
+  <!-- Common JS Modules - loaded as ES6 modules -->
+  <script type="module" src="common/AppHeader.js"></script>
+</head>
+<body>
+  <div class="landing-container">
+    <div class="hero">
+      <h1>AIDE Quiz</h1>
+      <p class="hero-tagline">Interactive Quiz Platform for Teachers and Students</p>
+    </div>
+
+    <div class="aide-intro">
+      <img src="docs/aide/AIDE.jpg" alt="AIDE Logo" class="aide-logo">
+      <div class="aide-text">
+        <p>
+          <strong>AIDE Quiz</strong> is part of the
+          <a href="#" onclick="window.techDocsModal.open('aide/AIDE.md'); return false;">AIDE Series</a>
+          (Artificial Intelligence for Development Engineers) —
+          an educational project demonstrating professional AI-assisted software development.
+          It is aimed at beginners, CS students, practitioners, and skeptics.
+        </p>
+        <p class="aide-cta">
+          <a href="#" class="aide-link" onclick="window.techDocsModal.open('STUDENT_GUIDE.md'); return false;">
+            📖 Student Guide
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="apps-grid">
+      <a href="quiz/" class="app-card">
+        <span class="app-icon">🎯</span>
+        <h2>Take Quiz</h2>
+        <p>Join a quiz session and test your knowledge</p>
+        <span class="app-badge badge-student">For Students</span>
+      </a>
+      
+      <a href="result/" class="app-card">
+        <span class="app-icon">📊</span>
+        <h2>My Results</h2>
+        <p>View your quiz results and learn from mistakes</p>
+        <span class="app-badge badge-student">For Students</span>
+      </a>
+      
+      <a href="stats/" class="app-card">
+        <span class="app-icon">📈</span>
+        <h2>Statistics</h2>
+        <p>Analyze session results and participant performance</p>
+        <span class="app-badge badge-student">For Students</span>
+        <span class="app-badge badge-teacher">For Teachers</span>
+      </a>
+
+      <a href="editor/" class="app-card">
+        <span class="app-icon">📝</span>
+        <h2>Quiz Editor</h2>
+        <p>Create and manage quizzes with an intuitive interface</p>
+        <span class="app-badge badge-teacher">For Teachers</span>
+      </a>
+    </div>
+    
+    <div class="info-section">
+      <h3>✨ Features</h3>
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="feature-icon">✅</span>
+          <span>Easy Quiz Creation</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🖼️</span>
+          <span>Media Upload (Images, Videos)</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📝</span>
+          <span>Markdown Support</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🎯</span>
+          <span>Single & Multiple Choice</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📊</span>
+          <span>Real-time Statistics</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📐</span>
+          <span>Integrated Architecture Docs</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📱</span>
+          <span>Responsive Design</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">❓</span>
+          <span>Integrated Help</span>
+        </div>
+      </div>
+    </div>
+    
+    <div style="text-align: center; color: #999; margin-top: 40px;">
+      <p>AIDE Quiz v2.0 • December 2025</p>
+    </div>
+  </div>
+  
+  <!-- Markdown Rendering -->
+  <script src="vendor/marked/marked.min.js"></script>
+
+  <!-- Mermaid for UML Diagrams -->
+  <script src="vendor/mermaid/mermaid.min.js"></script>
+  
+  <!-- Help & Tech Docs System -->
+  <!-- Modal System CSS -->
+  <link rel="stylesheet" href="help/modal-base.css">
+  <link rel="stylesheet" href="help/help-modal.css">
+  <link rel="stylesheet" href="help/modal-search.css">
+  <link rel="stylesheet" href="help/tech-docs-modal.css">
+  <script type="module">
+    import { HelpModal } from './help/HelpModal.js';
+    import { TechDocsModal } from './help/TechDocsModal.js';
+    import { LocationState } from './common/LocationState.js';
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize both modals with cross-references
+      window.techDocsModal = new TechDocsModal('INDEX.md');
+      window.helpModal = new HelpModal('README.md', '?', window.techDocsModal);
+
+      // Link them together
+      window.techDocsModal.helpModal = window.helpModal;
+
+      // Initialize LocationState for language switching
+      LocationState.init(window.helpModal, window.techDocsModal);
+    });
+  </script>
+</body>
+</html>

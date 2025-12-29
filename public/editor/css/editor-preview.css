@@ -1,0 +1,156 @@
+/* ================================
+   MARKDOWN PREVIEW
+   ================================ */
+
+/* Preview Buttons */
+.btn-preview {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #495057;
+  font-weight: 500;
+}
+
+.btn-preview:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.btn-preview.preview-active {
+  background: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+
+.btn-preview.preview-active:hover {
+  background: #218838;
+  border-color: #218838;
+}
+
+.btn-preview-small {
+  padding: 4px 8px;
+  font-size: 14px;
+  min-width: 32px;
+}
+
+/* Preview Boxes */
+.preview-box {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px 16px;
+  min-height: 60px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #212529;
+  margin-top: 4px;
+}
+
+.preview-box-small {
+  min-height: 40px;
+  font-size: 15px;
+  padding: 10px 14px;
+}
+
+/* Preview Box Typography */
+.preview-box h1,
+.preview-box h2,
+.preview-box h3,
+.preview-box h4,
+.preview-box h5,
+.preview-box h6 {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.preview-box h1:first-child,
+.preview-box h2:first-child,
+.preview-box h3:first-child,
+.preview-box h4:first-child,
+.preview-box h5:first-child,
+.preview-box h6:first-child {
+  margin-top: 0;
+}
+
+.preview-box p {
+  margin: 8px 0;
+}
+
+.preview-box p:first-child {
+  margin-top: 0;
+}
+
+.preview-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* Preview Box Lists */
+.preview-box ul,
+.preview-box ol {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+
+.preview-box li {
+  margin: 4px 0;
+}
+
+/* Preview Box Media */
+.preview-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+/* Preview Box Code */
+.preview-box code {
+  background: #e9ecef;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.preview-box pre {
+  background: #e9ecef;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.preview-box pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Preview Box Quotes */
+.preview-box blockquote {
+  border-left: 4px solid #667eea;
+  padding-left: 12px;
+  margin: 12px 0;
+  color: #6c757d;
+}
+
+/* Preview Box Text Formatting */
+.preview-box em {
+  font-style: italic;
+}
+
+.preview-box strong {
+  font-weight: bold;
+}
+
+.preview-box a {
+  color: #667eea;
+  text-decoration: underline;
+}
+
+.preview-box a:hover {
+  color: #5568d3;
+}

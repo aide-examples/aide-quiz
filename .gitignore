@@ -1,0 +1,20 @@
+node_modules/
+logs/
+*.log
+
+# Environment files (contain secrets!)
+# Only .env.sample is tracked
+server/.env
+server/.env.*
+!server/.env.sample
+
+# Database (local development data)
+server/data.sqlite
+server/data.sqlite-shm
+server/data.sqlite-wal
+
+# Translation cache (generated files)
+server/cache/translations/*.json
+
+# Deployment archives
+*.tar.gz

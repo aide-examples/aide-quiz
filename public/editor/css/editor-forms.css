@@ -1,0 +1,211 @@
+/* ================================
+   FORMS & INPUTS
+   ================================ */
+
+/* Text Inputs */
+.quiz-title-input {
+  width: 100%;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.quiz-title-input:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.create-quiz-input {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.create-quiz-input:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.question-text-input {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px 14px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.question-text-input:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.keyword-input {
+  flex: 1;
+  background: #e3f2fd;
+  border: 2px solid #90caf9;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1565c0;
+  transition: all 0.2s;
+}
+
+.keyword-input:focus {
+  background: #bbdefb;
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.keyword-input::placeholder {
+  color: #64b5f6;
+  font-weight: 500;
+}
+
+.option-id-input {
+  width: 32px !important;
+  height: 32px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: #667eea;
+  padding: 4px !important;
+  border: 2px solid #e9ecef !important;
+  border-radius: 4px;
+}
+
+/* Textareas */
+.option-text-textarea {
+  width: 100%;
+  min-height: 40px;
+  padding: 10px 14px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 16px;
+  resize: none;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.option-text-textarea:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.reason-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: none;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.reason-textarea:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.reason-textarea.hidden {
+  display: none;
+}
+
+.reason-textarea.option-reason {
+  min-height: 60px;
+  background: #f8f9fa;
+}
+
+/* Checkboxes */
+.option-card input[type="checkbox"] {
+  width: 32px;
+  height: 28px;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Buttons */
+.btn-danger {
+  background: #fdd;
+  color: white;
+  padding: 8px 16px;
+}
+
+.btn-danger:hover {
+  background: #c82333;
+}
+
+.btn-toggle-reason {
+  background: #f0f0f0;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #495057;
+}
+
+.btn-toggle-reason:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+/* Icon Buttons */
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.delete-btn {
+  background: #fee;
+  color: #dc3545;
+}
+
+.delete-btn:hover {
+  background: #dc3545;
+  color: white;
+}
+
+.reason-btn {
+  background: #f0f0f0;
+  color: #6c757d;
+}
+
+.reason-btn.has-reason {
+  background: #d4edda;
+  color: #28a745;
+}
+
+.reason-btn:hover {
+  background: #667eea;
+  color: white;
+}

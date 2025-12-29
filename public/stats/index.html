@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group Statistics</title>
+
+  <!-- Common CSS Modules -->
+  <link rel="stylesheet" href="../common/base.css">
+  <link rel="stylesheet" href="../common/forms.css">
+  <link rel="stylesheet" href="../common/utilities.css">
+  <link rel="stylesheet" href="../common/header.css">
+  <link rel="stylesheet" href="../common/image-layout.css">
+
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="css/stats.css">
+
+  <!-- Modal System CSS -->
+  <link rel="stylesheet" href="../help/modal-base.css">
+  <link rel="stylesheet" href="../help/help-modal.css">
+  <link rel="stylesheet" href="../help/modal-search.css">
+  <link rel="stylesheet" href="../help/tech-docs-modal.css">
+</head>
+<body>
+  <div class="container">
+    <div class="stats-header">
+      <h1 id="statsMainHeading">Group Statistics</h1>
+      <h3 id="statsSubtitle">Analyze the results of your quiz session</h3>
+
+      <div class="form-group">
+        <label id="sessionLabel" for="sessionSelect">Select session:</label>
+        <select id="sessionSelect"></select>
+      </div>
+
+      <button id="loadBtn" class="btn btn-primary">open statistics</button>
+    </div>
+
+    <div id="statsContent" style="display:none;">
+      <!-- Overview Cards -->
+      <div class="stats-overview" id="statsOverview"></div>
+
+      <!-- Overall Chart -->
+      <div class="chart-container">
+        <div class="chart-header">
+          <div id="chartTitle" class="chart-title">Overview: Success Rate per Question</div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="overviewChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Question List -->
+      <div class="question-list">
+        <div id="detailedHeader" class="question-list-header">
+          Detailed Question Statistics
+        </div>
+        <div class="filter-buttons">
+          <button id="filterAll" class="filter-btn active" data-filter="all">all</button>
+          <button id="filterDifficult" class="filter-btn" data-filter="difficult">difficult (&lt;50%)</button>
+          <button id="filterEasy" class="filter-btn" data-filter="easy">easy (&gt;80%)</button>
+        </div>
+        <div id="questionList"></div>
+      </div>
+    </div>
+
+    <div id="loading" class="loading" style="display:none;">
+      <span id="loadingText">Loading statistics...</span>
+    </div>
+
+    <div id="noData" class="no-data" style="display:none;">
+      <span id="noDataText">No data available. Please select a session.</span>
+    </div>
+  </div>
+
+  <!-- Vendor Libraries (non-module) -->
+  <script src="../vendor/chartjs/chart.min.js"></script>
+  <script src="../vendor/marked/marked.min.js"></script>
+  <script src="../vendor/polyglot/polyglot.min.js"></script>
+  <script src="../vendor/mermaid/mermaid.min.js"></script>
+
+  <!-- Main Application (ES Module) -->
+  <script type="module" src="js/StatsPage.js"></script>
+
+  <!-- Help System (ES Module) -->
+  <script type="module">
+    import { HelpModal } from '../help/HelpModal.js';
+    import { TechDocsModal } from '../help/TechDocsModal.js';
+
+    document.addEventListener('DOMContentLoaded', function() {
+      window.techDocsModal = new TechDocsModal('INDEX.md');
+      window.helpModal = new HelpModal('README.md', '?', window.techDocsModal);
+      window.techDocsModal.helpModal = window.helpModal;
+    });
+  </script>
+</body>
+</html>

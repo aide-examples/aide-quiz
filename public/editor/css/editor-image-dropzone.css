@@ -1,0 +1,140 @@
+/* Image Drop-Zone Styling for Editor */
+
+/* Main layout: dropzone left, textarea right */
+.text-with-images-editor {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* Drop zone container */
+.editor-image-dropzone {
+  min-width: 160px;
+  max-width: 160px;
+  min-height: 120px;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  padding: 8px;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.editor-image-dropzone-small {
+  min-width: 120px;
+  max-width: 120px;
+  min-height: 80px;
+}
+
+/* Hover state */
+.editor-image-dropzone:hover {
+  border-color: #adb5bd;
+  background: #e9ecef;
+}
+
+/* Drag over state */
+.editor-image-dropzone.drag-over {
+  border-color: #0d6efd;
+  background: #cfe2ff;
+  border-style: solid;
+}
+
+/* Empty dropzone hint */
+.dropzone-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #6c757d;
+  text-align: center;
+  font-size: 12px;
+  gap: 4px;
+}
+
+.dropzone-icon {
+  font-size: 24px;
+  opacity: 0.6;
+}
+
+.dropzone-text {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+/* Image preview items */
+.editor-image-item {
+  position: relative;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: white;
+  border: 1px solid #dee2e6;
+}
+
+.editor-image-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 100px;
+  object-fit: cover;
+}
+
+/* Remove button */
+.remove-image-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(220, 53, 69, 0.9);
+  color: white;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+  font-weight: bold;
+}
+
+.remove-image-btn:hover {
+  background: #dc3545;
+  transform: scale(1.1);
+}
+
+/* Textarea adjustments when in flex layout */
+.text-with-images-editor textarea,
+.text-with-images-editor input[type="text"] {
+  flex: 1;
+  min-height: 120px;
+}
+
+.text-with-images-editor .option-text-textarea {
+  min-height: 80px;
+}
+
+.text-with-images-editor .reason-textarea {
+  min-height: 100px;
+}
+
+/* MediaManager: Dragging state */
+.media-item[draggable="true"] {
+  cursor: grab;
+}
+
+.media-item.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
+.media-item[draggable="true"]:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}

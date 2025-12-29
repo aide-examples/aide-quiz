@@ -1,0 +1,223 @@
+/* ================================
+   LAYOUT & CONTAINERS
+   ================================ */
+
+/* Login & Password */
+#passwordInput {
+  font-size: 16px;
+  padding: 10px 14px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+/* Editor Header */
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.toolbar select {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Create Quiz Section */
+.create-quiz-section {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.create-quiz-section .btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Session Info */
+.session-info {
+  background: #d4edda;
+  border-left: 4px solid #28a745;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+/* Messages & Errors */
+.error-message {
+  color: #dc3545;
+  margin-top: 12px;
+  display: none;
+}
+
+.message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  background: #28a745;
+  color: white;
+  display: none;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.message.error {
+  background: #dc3545;
+}
+
+/* JSON Editor - CodeMirror 5 */
+#jsonEditor {
+  display: none; /* Hidden by CodeMirror */
+}
+
+#jsonMode {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 280px); /* Full viewport height minus header/toolbar/padding */
+  min-height: 400px;
+}
+
+.CodeMirror {
+  flex: 1; /* Take all available space */
+  height: auto !important; /* Override CodeMirror's default height */
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.CodeMirror-scroll {
+  min-height: 100%;
+  height: 100%;
+}
+
+/* Ensure UI mode also uses available space */
+#uiMode {
+  min-height: 400px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #jsonMode {
+    height: calc(100vh - 320px); /* More space for mobile toolbar */
+  }
+}
+
+@media (max-height: 600px) {
+  #jsonMode {
+    height: calc(100vh - 200px); /* Less padding on short screens */
+    min-height: 300px;
+  }
+}
+
+/* Question Card */
+.question-card {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.question-card .form-group {
+  margin-bottom: 16px;
+}
+
+.question-card label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.question-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+/* Options List */
+.options-list {
+  margin-top: 12px;
+}
+
+.option-card {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  cursor: move;
+  transition: all 0.2s;
+}
+
+.option-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.option-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.icon-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.option-inputs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option-inputs input {
+  width: 100%;
+}
+
+/* Choice Wrappers */
+.option-text-wrapper,
+.option-reason-wrapper {
+  margin-bottom: 8px;
+}
+
+.option-reason-wrapper.hidden {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+  }
+  
+  .toolbar select {
+    width: 100%;
+  }
+}

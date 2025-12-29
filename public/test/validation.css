@@ -1,0 +1,229 @@
+/* ============================================================================
+   VALIDATION STYLING
+   Visual feedback for client-side validation
+   ============================================================================ */
+
+/**
+ * Validation Error State
+ * Applied to input fields that fail validation
+ */
+.validation-error {
+  border-color: #dc3545 !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+  background-color: #fff5f5 !important;
+}
+
+.validation-error:focus {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.3rem rgba(220, 53, 69, 0.35) !important;
+  outline: none;
+}
+
+/**
+ * Validation Success State
+ * Applied to input fields that pass validation
+ */
+.validation-success {
+  border-color: #28a745 !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+  background-color: #f0fff4 !important;
+}
+
+.validation-success:focus {
+  border-color: #28a745 !important;
+  box-shadow: 0 0 0 0.3rem rgba(40, 167, 69, 0.35) !important;
+  outline: none;
+}
+
+/**
+ * Validation Error Message
+ * Styling for error messages displayed near invalid fields
+ */
+.validation-error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.validation-error-message::before {
+  content: '⚠ ';
+  font-weight: bold;
+}
+
+/**
+ * Validation Success Message
+ * Styling for success messages
+ */
+.validation-success-message {
+  color: #28a745;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.validation-success-message::before {
+  content: '✓ ';
+  font-weight: bold;
+}
+
+/**
+ * Form Validation Summary
+ * Container for displaying multiple validation errors
+ */
+.validation-summary {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  color: #721c24;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.validation-summary h4 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.validation-summary ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.validation-summary li {
+  margin: 4px 0;
+}
+
+/**
+ * Required Field Indicator
+ * Visual indicator for required fields
+ */
+.field-required::after {
+  content: ' *';
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/**
+ * Validation Spinner
+ * Loading indicator during async validation
+ */
+.validation-loading {
+  position: relative;
+}
+
+.validation-loading::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: validation-spin 0.8s linear infinite;
+}
+
+@keyframes validation-spin {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/**
+ * Validation Tooltip
+ * Inline validation tooltips
+ */
+.validation-tooltip {
+  position: absolute;
+  background-color: #333;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.validation-tooltip.show {
+  opacity: 1;
+}
+
+.validation-tooltip::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #333;
+}
+
+/**
+ * Accessibility - Screen Reader Only
+ * Hide validation messages visually but keep them for screen readers
+ */
+.validation-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/**
+ * Disable Validation Styling
+ * Class to temporarily disable validation visuals
+ */
+.validation-disabled .validation-error,
+.validation-disabled .validation-success {
+  border-color: inherit !important;
+  box-shadow: none !important;
+  background-color: inherit !important;
+}
+
+/**
+ * Light Theme Adjustments
+ * Subtle validation colors for light backgrounds
+ */
+.theme-light .validation-error {
+  background-color: #fff9f9 !important;
+}
+
+.theme-light .validation-success {
+  background-color: #f9fff9 !important;
+}
+
+/**
+ * Dark Theme Adjustments
+ * High contrast validation colors for dark backgrounds
+ */
+.theme-dark .validation-error {
+  background-color: #2a1515 !important;
+  border-color: #ff6b6b !important;
+}
+
+.theme-dark .validation-success {
+  background-color: #152a15 !important;
+  border-color: #51cf66 !important;
+}
+
+.theme-dark .validation-error-message {
+  color: #ff6b6b;
+}
+
+.theme-dark .validation-success-message {
+  color: #51cf66;
+}
