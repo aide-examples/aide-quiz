@@ -11,6 +11,7 @@ import { BASE_PATH } from '../../common/BasePath.js';
 import { QuizUtils } from '../../common/QuizHelpers.js';
 import { renderQuestionWithImages, renderOptionWithImages } from '../../common/ImageRendering.js';
 import { validationClient } from '../../common/ValidationClient.js';
+import { LanguageHelper } from '../../common/LanguageHelper.js';
 import '../../common/AppHeader.js';
 
 /**
@@ -31,8 +32,8 @@ class QuizPage {
   async init() {
     this.translateStaticElements();
     this.generateUserCode();
-    await this.loadOpenSessions();
     await this.initializeValidation();
+    await this.loadOpenSessions();
     this.setupEventListeners();
   }
 
@@ -61,7 +62,9 @@ class QuizPage {
   }
 
   /**
-   * Generate random user code
+   * Generate random user code (3 pronounceable syllables).
+   * 15 consonants × 5 vowels = 75 combinations per syllable.
+   * Total: 75³ = 421,875 possible codes (~0.0002% collision probability).
    */
   generateUserCode() {
     let code = '';
@@ -99,27 +102,11 @@ class QuizPage {
   }
 
   /**
-   * Get user's selected language from Google Translate cookie
-   */
-  getUserLanguage() {
-    const cookie = document.cookie.split('; ').find(c => c.startsWith('googtrans='));
-    if (!cookie) return null;
-
-    const value = cookie.split('=')[1];
-    const match = value.match(/\/[a-z]{2}\/([a-z]{2})/);
-    return match ? match[1] : null;
-  }
-
-  /**
    * Translate quiz if user's language differs from quiz language
    */
   async translateQuizIfNeeded(quiz) {
-    const userLang = this.getUserLanguage();
+    const userLang = LanguageHelper.getPreferredLanguage();
     const quizLang = quiz.language || 'de';
-
-    if (!userLang) {
-      return { translated: false, reason: 'No user language preference', quiz };
-    }
 
     if (userLang === quizLang) {
       return { translated: false, reason: 'Same language', quiz };

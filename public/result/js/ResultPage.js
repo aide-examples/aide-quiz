@@ -9,6 +9,7 @@ import { i18n, appReady } from '../../common/i18n.js';
 import { BASE_PATH } from '../../common/BasePath.js';
 import { QuizUtils } from '../../common/QuizHelpers.js';
 import { renderQuestionWithImages, renderImages, renderReasonWithImages } from '../../common/ImageRendering.js';
+import { LanguageHelper } from '../../common/LanguageHelper.js';
 import '../../common/AppHeader.js';
 
 /**
@@ -47,27 +48,10 @@ class ResultPage {
   }
 
   /**
-   * Get user's selected language from Google Translate cookie
-   */
-  getUserLanguage() {
-    const cookie = document.cookie.split('; ').find(c => c.startsWith('googtrans='));
-    if (!cookie) return null;
-
-    const value = cookie.split('=')[1];
-    const match = value.match(/\/[a-z]{2}\/([a-z]{2})/);
-    return match ? match[1] : null;
-  }
-
-  /**
    * Translate result if user's language differs from quiz language
    */
   async translateResultIfNeeded(resultData) {
-    const userLang = this.getUserLanguage();
-    if (!userLang) {
-      log('[Translation] No language preference, using original');
-      return resultData;
-    }
-
+    const userLang = LanguageHelper.getPreferredLanguage();
     log(`[Translation] Requesting translation to ${userLang}...`);
 
     try {

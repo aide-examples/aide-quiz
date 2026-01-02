@@ -10,6 +10,7 @@ import { i18n, appReady } from '../../common/i18n.js';
 import { BASE_PATH } from '../../common/BasePath.js';
 import { QuizUtils } from '../../common/QuizHelpers.js';
 import { renderQuestionWithImages } from '../../common/ImageRendering.js';
+import { LanguageHelper } from '../../common/LanguageHelper.js';
 import '../../common/AppHeader.js'; // Auto-initializes header
 
 /**
@@ -69,30 +70,13 @@ class StatsPage {
   }
 
   /**
-   * Get user's selected language from Google Translate cookie
-   * @returns {string|null} Language code or null
-   */
-  getUserLanguage() {
-    const cookie = document.cookie.split('; ').find(c => c.startsWith('googtrans='));
-    if (!cookie) return null;
-
-    const value = cookie.split('=')[1];
-    const match = value.match(/\/[a-z]{2}\/([a-z]{2})/);
-    return match ? match[1] : null;
-  }
-
-  /**
    * Translate quiz if user's language differs from quiz language
    * @param {Object} quiz - Quiz data from API
    * @returns {Promise<Object>} Translation result
    */
   async translateQuizIfNeeded(quiz) {
-    const userLang = this.getUserLanguage();
+    const userLang = LanguageHelper.getPreferredLanguage();
     const quizLang = quiz.language || 'de';
-
-    if (!userLang) {
-      return { translated: false, reason: 'No user language preference', quiz };
-    }
 
     if (userLang === quizLang) {
       return { translated: false, reason: 'Same language', quiz };
