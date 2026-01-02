@@ -15,8 +15,31 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Check if router files are being committed
+# Check if server files are being committed (for E2E test)
 cd ..
+SERVER_CHANGES=$(git diff --cached --name-only | grep "^server/")
+
+if [ -n "$SERVER_CHANGES" ]; then
+    echo ""
+    echo "Server changes detected - running E2E API test..."
+
+    # Check if server is running
+    if curl -s http://localhost:37373/api/teacher/status > /dev/null 2>&1; then
+        cd server && node tests/e2e-quiz-workflow.js
+        if [ $? -ne 0 ]; then
+            echo ""
+            echo "Commit aborted. E2E test failed."
+            exit 1
+        fi
+        cd ..
+        echo "✅ E2E API test passed."
+    else
+        echo "⚠️  Server not running on localhost:37373 - skipping E2E test."
+        echo "   Start server with: cd server && npm start"
+    fi
+fi
+
+# Check if router files are being committed
 ROUTER_CHANGES=$(git diff --cached --name-only | grep "^server/routers/.*\.js$")
 
 if [ -n "$ROUTER_CHANGES" ]; then

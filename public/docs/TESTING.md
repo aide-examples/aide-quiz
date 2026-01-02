@@ -1,19 +1,59 @@
 # Testing
 
-> **Current State:** No test framework installed yet. This document provides the setup guide.
+## Current State
 
-## Recommended Setup
+- **E2E API Test**: Implemented and integrated into pre-commit hook
+- **Unit Tests**: Not yet implemented (Jest setup documented below)
 
-### Install Jest
+## E2E API Test
+
+The E2E test (`server/tests/e2e-quiz-workflow.js`) tests the complete quiz workflow:
+
+1. Login as teacher
+2. Create quiz with 2 questions (single + multiple choice)
+3. Create session
+4. Simulate 4 participants with different answers
+5. Verify statistics
+6. Fetch result for one participant
+7. Cleanup (optional)
+
+### Running the E2E Test
+
+```bash
+cd server
+
+# Run with cleanup (default)
+npm run test:e2e
+
+# Keep test data in DB for inspection
+node tests/e2e-quiz-workflow.js --keep
+```
+
+### Pre-commit Integration
+
+The E2E test runs automatically on commit when server files are changed:
+- Requires server running on `localhost:37373`
+- Skipped if server is not running (with warning)
+- Commit is blocked if test fails
+
+### Limitations
+
+- **DeepL Translation**: Not tested (requires API key)
+- **File Uploads**: Not covered
+- **Error scenarios**: Limited coverage
+
+## Unit Tests (Planned)
+
+> **Status:** Jest not yet installed. Unit tests would complement E2E tests for isolated component testing.
+
+### Recommended Setup
 
 ```bash
 cd server
 npm install --save-dev jest
 ```
 
-### Add Script
-
-In `server/package.json`:
+Add to `server/package.json`:
 ```json
 {
   "scripts": {
@@ -24,9 +64,7 @@ In `server/package.json`:
 }
 ```
 
-### Create Config
-
-`server/jest.config.js`:
+Create `server/jest.config.js`:
 ```javascript
 module.exports = {
   testEnvironment: 'node',
@@ -39,7 +77,7 @@ module.exports = {
 };
 ```
 
-## What to Test
+### What to Test
 
 | Layer | Priority | Example |
 |-------|----------|---------|
@@ -48,9 +86,9 @@ module.exports = {
 | **Middleware** | Medium | errorHandler, correlationId |
 | **Validators** | High | ObjectValidator rules |
 
-## Test Examples
+### Test Examples
 
-### Service Test
+#### Service Test
 
 ```javascript
 // services/QuizService.test.js
@@ -78,7 +116,7 @@ describe('QuizService', () => {
 });
 ```
 
-### Repository Test
+#### Repository Test
 
 ```javascript
 // repositories/QuizRepository.test.js
@@ -104,40 +142,13 @@ describe('QuizRepository', () => {
 });
 ```
 
-### Validator Test
-
-```javascript
-// shared/validation/ObjectValidator.test.js
-const ObjectValidator = require('./ObjectValidator');
-
-describe('ObjectValidator', () => {
-  test('validates required fields', () => {
-    const validator = new ObjectValidator();
-    validator.registerRules('Test', {
-      name: { type: 'string', required: true }
-    });
-
-    expect(() => validator.validate('Test', {}))
-      .toThrow('name is required');
-  });
-});
-```
-
-## Coverage Goals
+### Coverage Goals
 
 | Component | Target |
 |-----------|--------|
 | Services | 80% |
 | Repositories | 70% |
 | Validators | 90% |
-
-## Run Tests
-
-```bash
-npm test              # Run all tests
-npm run test:watch    # Watch mode
-npm run test:coverage # With coverage report
-```
 
 ---
 
