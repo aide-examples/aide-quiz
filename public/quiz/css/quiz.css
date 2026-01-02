@@ -148,6 +148,16 @@
   margin-bottom: 16px;
 }
 
+.question-counter .question-keyword {
+  font-weight: 600;
+  color: #495057;
+  margin-left: 8px;
+  background: #e9ecef;
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid #ced4da;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;

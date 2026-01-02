@@ -5,13 +5,13 @@
  * answer collection, and submission.
  */
 
-import { fetchWithErrorHandling, toast, log } from '../../common/ApiHelpers.js';
+import { fetchWithErrorHandling, toast } from '../../common/ApiHelpers.js';
 import { i18n, appReady } from '../../common/i18n.js';
 import { BASE_PATH } from '../../common/BasePath.js';
 import { QuizUtils } from '../../common/QuizHelpers.js';
 import { renderQuestionWithImages, renderOptionWithImages } from '../../common/ImageRendering.js';
 import { validationClient } from '../../common/ValidationClient.js';
-import { LanguageHelper } from '../../common/LanguageHelper.js';
+import { TranslationHelper } from '../../common/TranslationHelper.js';
 import '../../common/AppHeader.js';
 
 /**
@@ -102,37 +102,6 @@ class QuizPage {
   }
 
   /**
-   * Translate quiz if user's language differs from quiz language
-   */
-  async translateQuizIfNeeded(quiz) {
-    const userLang = LanguageHelper.getPreferredLanguage();
-    const quizLang = quiz.language || 'de';
-
-    if (userLang === quizLang) {
-      return { translated: false, reason: 'Same language', quiz };
-    }
-
-    log(`[Translation] Requesting ${quizLang} -> ${userLang}...`);
-
-    try {
-      const result = await fetchWithErrorHandling(
-        `/api/translate/quiz/${quiz.id}?lang=${userLang}`
-      );
-
-      if (result.translated) {
-        log(`[Translation] Success: ${result.sourceLang} -> ${result.targetLang}`);
-      } else {
-        console.warn(`[Translation] Not translated: ${result.reason}`);
-      }
-
-      return result;
-    } catch (err) {
-      console.error('[Translation] Request failed:', err);
-      return { translated: false, reason: err.message, quiz };
-    }
-  }
-
-  /**
    * Load currently open sessions
    */
   async loadOpenSessions() {
@@ -185,7 +154,7 @@ class QuizPage {
     try {
       this.quizData = await fetchWithErrorHandling(`/api/session/${encodeURIComponent(session)}/quiz`);
 
-      const translationResult = await this.translateQuizIfNeeded(this.quizData);
+      const translationResult = await TranslationHelper.translateQuizIfNeeded(this.quizData);
       this.quizData = translationResult.quiz;
 
       this.quizUtil = new QuizUtils(this.quizData.id);
@@ -205,15 +174,16 @@ class QuizPage {
   }
 
   /**
-   * Update progress bar
+   * Update progress bar and question info
    */
   updateProgress() {
     const total = this.quizData.questions.length;
     const current = this.currentIdx + 1;
     const percent = (current / total) * 100;
+    const keyword = this.quizData.questions[this.currentIdx].keyword;
 
-    document.getElementById('questionCounter').innerText =
-      i18n.t('quiz_question_counter', { current, total });
+    const counterEl = document.getElementById('questionCounter');
+    counterEl.innerHTML = `${i18n.t('quiz_question_counter', { current, total })} <span class="question-keyword">${keyword}</span>`;
     document.getElementById('progressFill').style.width = `${percent}%`;
   }
 

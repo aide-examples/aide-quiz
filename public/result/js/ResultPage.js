@@ -4,12 +4,13 @@
  * Handles loading and displaying quiz results with translation support.
  */
 
-import { fetchWithErrorHandling, toast, log } from '../../common/ApiHelpers.js';
+import { fetchWithErrorHandling, toast } from '../../common/ApiHelpers.js';
 import { i18n, appReady } from '../../common/i18n.js';
 import { BASE_PATH } from '../../common/BasePath.js';
 import { QuizUtils } from '../../common/QuizHelpers.js';
 import { renderQuestionWithImages, renderImages, renderReasonWithImages } from '../../common/ImageRendering.js';
-import { LanguageHelper } from '../../common/LanguageHelper.js';
+import { GoogleTranslateHelper } from '../../common/GoogleTranslateHelper.js';
+import { TranslationHelper } from '../../common/TranslationHelper.js';
 import '../../common/AppHeader.js';
 
 /**
@@ -48,60 +49,54 @@ class ResultPage {
   }
 
   /**
-   * Translate result if user's language differs from quiz language
+   * Translate result if user's language differs from quiz language.
+   * Uses TranslationHelper for the API call, then maps translations to result details.
    */
   async translateResultIfNeeded(resultData) {
-    const userLang = LanguageHelper.getPreferredLanguage();
-    log(`[Translation] Requesting translation to ${userLang}...`);
+    const translationResult = await TranslationHelper.translateQuizIfNeeded({
+      id: resultData.quizId,
+      language: resultData.quizLanguage || 'de'
+    });
 
-    try {
-      const result = await fetchWithErrorHandling(
-        `/api/translate/quiz/${resultData.quizId}?lang=${userLang}`
-      );
-
-      if (result.translated) {
-        log(`[Translation] Success: ${result.sourceLang} -> ${result.targetLang}`);
-
-        const translatedQuiz = result.quiz;
-        resultData.details.forEach(detail => {
-          const translatedQuestion = translatedQuiz.questions.find(
-            q => q.id === detail.questionId || q.keyword === detail.keyword
-          );
-
-          if (translatedQuestion) {
-            detail.text = translatedQuestion.text || translatedQuestion.question;
-            detail.reason = translatedQuestion.reason || translatedQuestion.explanation;
-
-            if (translatedQuestion.options && detail.options) {
-              detail.options = detail.options.map((option, idx) => {
-                const translatedOption = translatedQuestion.options[idx];
-                if (typeof option === 'string' && typeof translatedOption === 'string') {
-                  return translatedOption;
-                } else if (typeof option === 'object' && typeof translatedOption === 'object') {
-                  return {
-                    ...option,
-                    text: translatedOption.text || option.text,
-                    reason: translatedOption.reason || option.reason
-                  };
-                }
-                return option;
-              });
-            }
-          }
-        });
-
-        if (translatedQuiz.title) {
-          resultData.quizTitle = translatedQuiz.title;
-        }
-      } else {
-        console.warn(`[Translation] Not translated: ${result.reason}`);
-      }
-
-      return resultData;
-    } catch (err) {
-      console.error('[Translation] Request failed:', err);
+    if (!translationResult.translated) {
       return resultData;
     }
+
+    // Map translated quiz data to result details
+    const translatedQuiz = translationResult.quiz;
+    resultData.details.forEach(detail => {
+      const translatedQuestion = translatedQuiz.questions.find(
+        q => q.id === detail.questionId || q.keyword === detail.keyword
+      );
+
+      if (translatedQuestion) {
+        detail.keyword = translatedQuestion.keyword || detail.keyword;
+        detail.text = translatedQuestion.text || translatedQuestion.question;
+        detail.reason = translatedQuestion.reason || translatedQuestion.explanation;
+
+        if (translatedQuestion.options && detail.options) {
+          detail.options = detail.options.map((option, idx) => {
+            const translatedOption = translatedQuestion.options[idx];
+            if (typeof option === 'string' && typeof translatedOption === 'string') {
+              return translatedOption;
+            } else if (typeof option === 'object' && typeof translatedOption === 'object') {
+              return {
+                ...option,
+                text: translatedOption.text || option.text,
+                reason: translatedOption.reason || option.reason
+              };
+            }
+            return option;
+          });
+        }
+      }
+    });
+
+    if (translatedQuiz.title) {
+      resultData.quizTitle = translatedQuiz.title;
+    }
+
+    return resultData;
   }
 
   /**
@@ -326,28 +321,12 @@ class ResultPage {
    * Watch for language changes via Google Translate
    */
   setupLanguageChangeListener() {
-    let attempts = 0;
-    const maxAttempts = 20;
-
-    const interval = setInterval(() => {
-      attempts++;
-
-      const selectElement = document.querySelector('.goog-te-combo');
-
-      if (selectElement) {
-        selectElement.addEventListener('change', () => {
-          if (this.resultLoaded && this.resultId) {
-            toast.info(i18n.t('result_language_changed'), 2000);
-            this.loadResult();
-          }
-        });
-
-        log('[Language Change] Listener attached');
-        clearInterval(interval);
-      } else if (attempts >= maxAttempts) {
-        clearInterval(interval);
+    GoogleTranslateHelper.setupLanguageChangeListener(() => {
+      if (this.resultLoaded && this.resultId) {
+        toast.info(i18n.t('result_language_changed'), 2000);
+        this.loadResult();
       }
-    }, 100);
+    });
   }
 }
 

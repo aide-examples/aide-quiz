@@ -10,7 +10,8 @@ import { i18n, appReady } from '../../common/i18n.js';
 import { BASE_PATH } from '../../common/BasePath.js';
 import { QuizUtils } from '../../common/QuizHelpers.js';
 import { renderQuestionWithImages } from '../../common/ImageRendering.js';
-import { LanguageHelper } from '../../common/LanguageHelper.js';
+import { TranslationHelper } from '../../common/TranslationHelper.js';
+import { GoogleTranslateHelper } from '../../common/GoogleTranslateHelper.js';
 import '../../common/AppHeader.js'; // Auto-initializes header
 
 /**
@@ -67,39 +68,6 @@ class StatsPage {
         if (this.statsData) this.displayQuestionList();
       });
     });
-  }
-
-  /**
-   * Translate quiz if user's language differs from quiz language
-   * @param {Object} quiz - Quiz data from API
-   * @returns {Promise<Object>} Translation result
-   */
-  async translateQuizIfNeeded(quiz) {
-    const userLang = LanguageHelper.getPreferredLanguage();
-    const quizLang = quiz.language || 'de';
-
-    if (userLang === quizLang) {
-      return { translated: false, reason: 'Same language', quiz };
-    }
-
-    log(`[Translation] Requesting ${quizLang} -> ${userLang}...`);
-
-    try {
-      const result = await fetchWithErrorHandling(
-        `/api/translate/quiz/${quiz.id}?lang=${userLang}`
-      );
-
-      if (result.translated) {
-        log(`[Translation] Success: ${result.sourceLang} -> ${result.targetLang}`);
-      } else {
-        console.warn(`[Translation] Not translated: ${result.reason}`);
-      }
-
-      return result;
-    } catch (err) {
-      console.error('[Translation] Request failed:', err);
-      return { translated: false, reason: err.message, quiz };
-    }
   }
 
   /**
@@ -165,7 +133,7 @@ class StatsPage {
       this.statsData = await fetchWithErrorHandling(`/api/session/${encodeURIComponent(session)}/stats`);
       this.quizData = await fetchWithErrorHandling(`/api/session/${encodeURIComponent(session)}/quiz?forStat=true`);
 
-      const translationResult = await this.translateQuizIfNeeded(this.quizData);
+      const translationResult = await TranslationHelper.translateQuizIfNeeded(this.quizData);
       this.quizData = translationResult.quiz;
 
       this.displayStatistics(session);
@@ -219,6 +187,15 @@ class StatsPage {
       }
     });
 
+    // Get translated keyword for most difficult question
+    let mostDifficultKeyword = i18n.t('stats_na');
+    if (mostDifficult && this.quizData && this.quizData.questions) {
+      const translatedQ = this.quizData.questions.find(
+        qq => qq.id === mostDifficult.id || qq.keyword === mostDifficult.keyword
+      );
+      mostDifficultKeyword = translatedQ ? translatedQ.keyword : mostDifficult.keyword;
+    }
+
     overview.innerHTML = `
       <div class="stat-card info">
         <div class="stat-label">${i18n.t('stats_participants')}</div>
@@ -235,7 +212,7 @@ class StatsPage {
       <div class="stat-card warning">
         <div class="stat-label">${i18n.t('stats_most_difficult')}</div>
         <div class="stat-value">${mostDifficult ? Math.round(lowestRate) : 0}%</div>
-        <div style="font-size: 12px; margin-top: 4px;">${mostDifficult ? mostDifficult.keyword : i18n.t('stats_na')}</div>
+        <div style="font-size: 12px; margin-top: 4px;">${mostDifficultKeyword}</div>
       </div>
     `;
   }
@@ -375,9 +352,10 @@ class StatsPage {
         questionHtml = `<div class="question-text-only">${i18n.t('stats_no_question_text')}</div>`;
       }
 
+      const translatedKeyword = fullQuestion ? fullQuestion.keyword : q.keyword;
       questionDiv.innerHTML = `
         <div class="question-item-header">
-          <div class="question-keyword">${q.keyword}</div>
+          <div class="question-keyword">${translatedKeyword}</div>
           <div class="question-stats">
             <div class="question-stat">
               <span class="question-stat-icon">${successRate >= 70 ? '\u2705' : successRate >= 50 ? '\u26A0\uFE0F' : '\u274C'}</span>
@@ -477,28 +455,12 @@ class StatsPage {
    * Watch for language changes via Google Translate
    */
   setupLanguageChangeListener() {
-    let attempts = 0;
-    const maxAttempts = 20;
-
-    const interval = setInterval(() => {
-      attempts++;
-
-      const selectElement = document.querySelector('.goog-te-combo');
-
-      if (selectElement) {
-        selectElement.addEventListener('change', () => {
-          if (this.statsData && this.quizData) {
-            toast.info(i18n.t('stats_language_changed'), 2000);
-            this.loadStatistics();
-          }
-        });
-
-        log('[Language Change] Listener attached');
-        clearInterval(interval);
-      } else if (attempts >= maxAttempts) {
-        clearInterval(interval);
+    GoogleTranslateHelper.setupLanguageChangeListener(() => {
+      if (this.statsData && this.quizData) {
+        toast.info(i18n.t('stats_language_changed'), 2000);
+        this.loadStatistics();
       }
-    }, 100);
+    });
   }
 }
 
