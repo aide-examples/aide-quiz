@@ -29,17 +29,21 @@ Follow these steps:
    - List modified files
    - Ask user: "Hast du zwischen den Sessions Änderungen gemacht, die ich kennen sollte?"
 
-3. **Re-read key documentation**
+3. **Check TODO file**
+   - Read `public/docs/aide/TODO.md`
+   - If items exist, ask: "Diese TODOs sind noch offen - sollen wir damit weitermachen?"
+
+4. **Re-read key documentation**
    - `public/docs/INDEX.md` (structure overview)
    - `public/docs/ARCHITECTURE_REVIEW.md` (current TODOs)
    - `public/docs/AI_WORKFLOW.md` (workflow rules)
 
-4. **Summarize current state**
+5. **Summarize current state**
    - Project status
    - Open TODOs
    - Recent changes
 
-5. **Ask for session focus**
+6. **Ask for session focus**
    - "Was ist der Schwerpunkt für diese Session?"
    - Suggest using `/focus <thema>` for detailed context
 
@@ -51,6 +55,9 @@ Follow these steps:
 
 **Uncommitted Änderungen:**
 - [file list or "keine"]
+
+**TODOs aus TODO.md:**
+- [items or "keine offenen TODOs"]
 
 **Offene TODOs aus ARCHITECTURE_REVIEW:**
 - [priority items]
