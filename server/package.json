@@ -13,7 +13,8 @@
     "docs:api": "jsdoc2md routers/*.js > ../public/docs/API_REFERENCE.md",
     "validate": "node scripts/validate-docs-list.js",
     "metrics": "node scripts/generate-metrics.js",
-    "prestart": "node scripts/validate-docs-list.js"
+    "prestart": "node scripts/validate-docs-list.js",
+    "test:e2e": "node tests/e2e-quiz-workflow.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
