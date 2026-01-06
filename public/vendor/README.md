@@ -23,6 +23,7 @@ This directory contains all external JavaScript libraries used in the frontend.
 - Charts for statistics (Chart.js)
 - Code editing (CodeMirror)
 - Fuzzy search for docs (Fuse)
+- QR codes for sharing (qrcode-generator)
 
 **Size guideline:** Prefer < 100KB, but accept larger libraries when no alternative exists and feature is essential.
 
@@ -41,6 +42,7 @@ This directory contains all external JavaScript libraries used in the frontend.
 | **[Chart.js](chartjs/)** | 4.x | 208KB | Statistics charts | MIT |
 | **[CodeMirror](codemirror/)** | 5.x | 244KB | Code editor (JSON) | MIT |
 | **[Fuse.js](fuse/)** | 7.0.0 | 24KB | Fuzzy search | Apache-2.0 |
+| **[qrcode-generator](qrcode/)** | 1.4.4 | 55KB | QR code generation | MIT |
 
 ## Directory Structure
 

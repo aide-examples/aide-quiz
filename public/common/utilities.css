@@ -220,3 +220,67 @@ label.required:after {
   content: " *";
   color: #dc3545;
 }
+
+/* ============================================================================
+   QR CODE STYLES
+   ============================================================================ */
+
+.qr-code-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.qr-code-container-normal {
+  max-width: 200px;
+}
+
+.qr-code-container-large {
+  max-width: 400px;
+  padding: 24px;
+}
+
+.qr-code {
+  display: block;
+  image-rendering: pixelated;
+}
+
+.qr-code-normal {
+  width: 128px;
+  height: 128px;
+}
+
+.qr-code-large {
+  width: 300px;
+  height: 300px;
+}
+
+.qr-code-label {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  word-break: break-all;
+}
+
+.qr-code-container-large .qr-code-label {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+/* Mobile adjustments for QR codes */
+@media (max-width: 480px) {
+  .qr-code-container-large {
+    max-width: 280px;
+  }
+
+  .qr-code-large {
+    width: 220px;
+    height: 220px;
+  }
+}

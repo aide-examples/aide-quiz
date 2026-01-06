@@ -64,7 +64,10 @@
       </div>
 
       <div id="sessionInfo" class="session-info" style="display:none;">
-        Session: <strong id="sessionName"></strong>
+        <div class="session-info-header">
+          Session: <strong id="sessionName"></strong>
+        </div>
+        <div id="sessionQRCode" class="session-qr-code"></div>
       </div>
 
       <div id="uiMode" class="edit-mode">
@@ -156,6 +159,7 @@
   
   <!-- Vendor Libraries (non-module) -->
   <script src="../vendor/polyglot/polyglot.min.js"></script>
+  <script src="../vendor/qrcode/qrcode.js"></script>
 
   <!-- Validation System (non-module, sets window.ObjectValidator etc.) -->
   <link rel="stylesheet" href="../test/validation.css">

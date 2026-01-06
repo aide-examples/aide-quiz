@@ -47,7 +47,7 @@ This document explains how AIDE Quiz manages external libraries and why client-s
 
 **→ See [/public/vendor/README.md](../vendor/README.md) for the complete list with versions, sizes, and licenses.**
 
-Summary: Polyglot.js, Marked.js, Mermaid.js, Chart.js, CodeMirror, Fuse.js (~3.8MB total)
+Summary: Polyglot.js, Marked.js, Mermaid.js, Chart.js, CodeMirror, Fuse.js, qrcode-generator (~3.9MB total)
 
 ### Size Considerations
 

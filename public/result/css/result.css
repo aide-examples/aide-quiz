@@ -1,5 +1,9 @@
 /* Result-spezifische Styles */
 
+.result-header {
+  margin-bottom: 16px;
+}
+
 .summary-table {
   width: 100%;
   border-collapse: collapse;

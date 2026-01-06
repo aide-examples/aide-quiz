@@ -197,5 +197,8 @@
   "result_error_loading": "Error loading",
   "result_could_not_load": "Result could not be loaded",
   "result_check_link": "Please check the link or try again later.",
-  "result_language_changed": "Language changed - refreshing result..."
+  "result_language_changed": "Language changed - refreshing result...",
+
+  "qr_save_result": "Scan to save link",
+  "qr_scan_to_join": "Scan to join"
 }

@@ -53,9 +53,26 @@
 .session-info {
   background: #d4edda;
   border-left: 4px solid #28a745;
-  padding: 12px;
+  padding: 16px;
   margin-bottom: 20px;
   border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.session-info-header {
+  font-size: 16px;
+}
+
+.session-qr-code {
+  display: flex;
+  justify-content: center;
+}
+
+.session-qr-code .qr-code-container {
+  background: #fff;
 }
 
 /* Messages & Errors */

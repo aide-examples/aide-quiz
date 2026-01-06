@@ -197,5 +197,8 @@
   "result_error_loading": "Fehler beim Laden",
   "result_could_not_load": "Ergebnis konnte nicht geladen werden",
   "result_check_link": "Bitte überprüfe den Link oder versuche es später erneut.",
-  "result_language_changed": "Sprache geändert - Ergebnis wird aktualisiert..."
+  "result_language_changed": "Sprache geändert - Ergebnis wird aktualisiert...",
+
+  "qr_save_result": "Link scannen zum Speichern",
+  "qr_scan_to_join": "Scannen zum Teilnehmen"
 }

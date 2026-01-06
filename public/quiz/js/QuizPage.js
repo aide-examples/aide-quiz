@@ -12,6 +12,7 @@ import { QuizUtils } from '../../common/QuizHelpers.js';
 import { renderQuestionWithImages, renderOptionWithImages } from '../../common/ImageRendering.js';
 import { validationClient } from '../../common/ValidationClient.js';
 import { TranslationHelper } from '../../common/TranslationHelper.js';
+import { createQRCodeContainer } from '../../common/QRCodeHelper.js';
 import '../../common/AppHeader.js';
 
 /**
@@ -313,6 +314,7 @@ class QuizPage {
           <p style="font-size: 14px; color: #6c757d;">
             \uD83D\uDCBE ${i18n.t('quiz_completed_save_hint')}
           </p>
+          <div id="completionQRCode" class="completion-qr-code"></div>
           <button class="btn btn-primary" onclick="window.location.href='${obj.resultLink}'">
             ${i18n.t('quiz_btn_view_results')}
           </button>
@@ -323,6 +325,12 @@ class QuizPage {
       `;
 
       document.body.appendChild(overlay);
+
+      // Add QR code to completion dialog
+      const qrContainer = createQRCodeContainer(fullUrl, 'normal', i18n.t('qr_save_result'));
+      if (qrContainer) {
+        document.getElementById('completionQRCode').appendChild(qrContainer);
+      }
       toast.success(i18n.t('quiz_completed_success'));
     } catch (err) {
       console.error('Submission failed:', err);

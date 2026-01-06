@@ -197,6 +197,12 @@
   background: #f8f9fa;
 }
 
+.completion-qr-code {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
 @media (max-width: 768px) {
   .question-header {
     flex-direction: column;

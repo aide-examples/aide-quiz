@@ -5,6 +5,7 @@
 import { fetchWithErrorHandling, toast } from '../../common/ApiHelpers.js';
 import { i18n, appReady } from '../../common/i18n.js';
 import { LanguageHelper } from '../../common/LanguageHelper.js';
+import { createQRCodeContainer } from '../../common/QRCodeHelper.js';
 
 export class SessionManager {
   constructor(editor) {
@@ -302,7 +303,11 @@ export class SessionManager {
 
       document.getElementById('sessionInfo').style.display = 'block';
       document.getElementById('sessionName').textContent = result.sessionName;
-      
+
+      // Generate quiz URL for participants
+      const quizUrl = `${window.location.origin}/quiz/?session=${result.sessionName}`;
+      this.renderSessionQRCode(quizUrl);
+
       const endTime = new Date(openUntil).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
       this.showMessage(i18n.t('session_created_until', { endTime }), false);
       
@@ -384,6 +389,27 @@ export class SessionManager {
     } catch (err) {
       console.error('Error deleting quiz:', err);
       // Error already shown as toast by fetchWithErrorHandling
+    }
+  }
+
+  /**
+   * Render QR code for session participation
+   */
+  renderSessionQRCode(url) {
+    const container = document.getElementById('sessionQRCode');
+    if (!container) return;
+
+    // Clear previous QR code
+    container.innerHTML = '';
+
+    const qrContainer = createQRCodeContainer(
+      url,
+      'large',
+      i18n.t('qr_scan_to_join')
+    );
+
+    if (qrContainer) {
+      container.appendChild(qrContainer);
     }
   }
 
