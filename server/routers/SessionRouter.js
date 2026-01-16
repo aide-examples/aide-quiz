@@ -1,4 +1,5 @@
 const express = require('express');
+const { DemoModeRestrictionError } = require('../errors');
 
 /**
  * Session Router
@@ -35,6 +36,11 @@ class SessionRouter {
      */
     this.router.post('/teacher/createSession', teacherOnly, async (req, res, next) => {
       try {
+        // Block in demo mode
+        if (this.authService.isDemoMode(req.session)) {
+          throw new DemoModeRestrictionError('Creating sessions');
+        }
+
         const { quizId, open_from, open_until } = req.body;
         const result = this.sessionService.createSession(quizId, open_from, open_until);
         return res.json({ ok: true, ...result });

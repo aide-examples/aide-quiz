@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const Constants = require('../config/constants');
-const { InvalidInputError } = require('../errors');
+const { InvalidInputError, DemoModeRestrictionError } = require('../errors');
 
 /**
  * Quiz Router
@@ -59,6 +59,11 @@ class QuizRouter {
      */
     this.router.post('/teacher/createQuiz', teacherOnly, async (req, res, next) => {
       try {
+        // Block in demo mode
+        if (this.authService.isDemoMode(req.session)) {
+          throw new DemoModeRestrictionError('Creating quizzes');
+        }
+
         const { title, imagePath, language } = req.body;
         const result = this.quizService.createQuiz(title, imagePath, language);
         return res.json({ ok: true, ...result });
@@ -85,6 +90,13 @@ class QuizRouter {
     this.router.post('/teacher/saveQuiz', teacherOnly, async (req, res, next) => {
       try {
         const { quiz, quizId } = req.body;
+
+        // In demo mode: validate but don't save, return success with demoMode flag
+        if (this.authService.isDemoMode(req.session)) {
+          this.quizValidator.validateQuiz(quiz);
+          return res.json({ ok: true, quizId, demoMode: true });
+        }
+
         this.quizValidator.validateQuiz(quiz);
         const result = this.quizService.saveQuiz(quiz, quizId);
         return res.json({ ok: true, ...result });
@@ -128,7 +140,14 @@ class QuizRouter {
      */
     this.router.get('/teacher/quizzes', teacherOnly, async (req, res, next) => {
       try {
-        const quizzes = this.quizService.getAllQuizzes();
+        let quizzes = this.quizService.getAllQuizzes();
+
+        // In demo mode: filter to only show demo quiz
+        if (this.authService.isDemoMode(req.session)) {
+          const demoQuizPath = this.authService.getDemoQuizPath(req.session);
+          quizzes = quizzes.filter(q => q.media_path === demoQuizPath || q.id === demoQuizPath);
+        }
+
         return res.json(quizzes);
       } catch (err) {
         next(err);
@@ -191,6 +210,11 @@ class QuizRouter {
      */
     this.router.delete('/teacher/quiz/:quizId', teacherOnly, async (req, res, next) => {
       try {
+        // Block in demo mode
+        if (this.authService.isDemoMode(req.session)) {
+          throw new DemoModeRestrictionError('Deleting quizzes');
+        }
+
         const { quizId } = req.params;
         const result = this.quizService.deleteQuiz(quizId);
         return res.json({ ok: true, ...result, message: 'Quiz and all related data deleted successfully' });

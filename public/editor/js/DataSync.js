@@ -479,12 +479,18 @@ export class DataSync {
       
       // Success
       this.editor.currentQuizId = result.quizId;
-      
+
       // Mark as saved after successful save
       this.editor.changeTracker.markAsSaved();
 
-      this.editor.sessionManager.showMessage(i18n.t('editor_quiz_saved_msg'), false);
-      toast.success(i18n.t('editor_quiz_saved_toast'), 3000);
+      // Check for demo mode response
+      if (result.demoMode) {
+        toast.info(i18n.t('demo_save_hint'), 5000);
+        this.editor.sessionManager.showMessage(i18n.t('demo_save_hint'), false);
+      } else {
+        this.editor.sessionManager.showMessage(i18n.t('editor_quiz_saved_msg'), false);
+        toast.success(i18n.t('editor_quiz_saved_toast'), 3000);
+      }
       
       if (!document.getElementById('quizSelect').value) {
         await this.editor.sessionManager.loadQuizList();

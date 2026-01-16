@@ -78,9 +78,13 @@ const Constants = {
   // ======================
   // AUTHENTICATION
   // ======================
-  
+
   TEACHER_PASSWORD: process.env.TEACHER_PASS || 'ingo',
   BCRYPT_ROUNDS: 10,
+
+  // Demo mode: read-only access to a specific quiz
+  DEMO_PASSWORD: 'demo',
+  DEMO_QUIZ_PATH: 'Unser_Erdball',
   
   // ======================
   // SERVER

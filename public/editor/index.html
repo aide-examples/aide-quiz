@@ -26,9 +26,13 @@
     <div id="loginScreen">
       <h1>🔒 Quiz Editor</h1>
       <h3 id="loginTitle">Teacher Login</h3>
-      <input type="password" id="passwordInput" placeholder="Password">
+      <input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter')window.quizEditor.sessionManager.login()">
       <button id="loginButton" class="btn btn-primary" onclick="window.quizEditor.sessionManager.login()" disabled>login</button>
       <div id="loginError" class="error-message"></div>
+      <div id="demoInfo" class="demo-info">
+        <strong id="demoInfoTitle">Demo mode available</strong>
+        <p id="demoInfoText">Use password "demo" for read-only access to the sample quiz.</p>
+      </div>
     </div>
 
     <div id="editorScreen" style="display:none;">
@@ -214,6 +218,10 @@
       document.getElementById('dropZoneHint').textContent = t('editor_drop_zone_hint');
       document.getElementById('dropZoneFormats').textContent = t('editor_drop_zone_formats');
       document.getElementById('deleteQuizBtn').title = t('editor_delete_quiz_title');
+
+      // Demo info
+      document.getElementById('demoInfoTitle').textContent = t('demo_info_title');
+      document.getElementById('demoInfoText').textContent = t('demo_info_text');
     });
   </script>
 </body>

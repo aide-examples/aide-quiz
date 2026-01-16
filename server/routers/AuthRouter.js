@@ -46,7 +46,16 @@ class AuthRouter {
       try {
         const { password } = req.body;
 
-        // Verify password (throws on error)
+        // Check for demo password first
+        if (this.authService.isDemoPassword(password)) {
+          this.authService.setDemoSession(req.session);
+          logger.info('Demo login successful', {
+            correlationId: req.correlationId
+          });
+          return res.json({ ok: true, demoMode: true });
+        }
+
+        // Verify regular password (throws on error)
         await this.authService.verifyTeacherPassword(password);
 
         // Set teacher session
@@ -56,7 +65,7 @@ class AuthRouter {
           correlationId: req.correlationId
         });
 
-        return res.json({ ok: true });
+        return res.json({ ok: true, demoMode: false });
       } catch (err) {
         // Pass error to error handler
         next(err);
@@ -113,7 +122,8 @@ class AuthRouter {
      */
     this.router.get('/teacher/status', (req, res) => {
       const isTeacher = this.authService.isTeacher(req.session);
-      return res.json({ authenticated: isTeacher });
+      const demoMode = this.authService.isDemoMode(req.session);
+      return res.json({ authenticated: isTeacher, demoMode });
     });
   }
 

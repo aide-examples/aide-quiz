@@ -64,12 +64,57 @@ class AuthService {
 
   setTeacherSession(session) {
     session.teacher = true;
+    session.demoMode = false;
     logger.debug('Teacher session set');
   }
 
   clearTeacherSession(session) {
     delete session.teacher;
+    delete session.demoMode;
+    delete session.demoQuizPath;
     logger.debug('Teacher session cleared');
+  }
+
+  // ======================
+  // DEMO MODE
+  // ======================
+
+  /**
+   * Check if password is the demo password
+   * @param {string} password
+   * @returns {boolean}
+   */
+  isDemoPassword(password) {
+    return password === Constants.DEMO_PASSWORD;
+  }
+
+  /**
+   * Set demo session (limited access)
+   * @param {object} session
+   */
+  setDemoSession(session) {
+    session.teacher = true;
+    session.demoMode = true;
+    session.demoQuizPath = Constants.DEMO_QUIZ_PATH;
+    logger.info('Demo session set');
+  }
+
+  /**
+   * Check if session is in demo mode
+   * @param {object} session
+   * @returns {boolean}
+   */
+  isDemoMode(session) {
+    return !!(session && session.demoMode);
+  }
+
+  /**
+   * Get the demo quiz path from session
+   * @param {object} session
+   * @returns {string|null}
+   */
+  getDemoQuizPath(session) {
+    return session?.demoQuizPath || null;
   }
 
   /**

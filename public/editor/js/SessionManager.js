@@ -10,6 +10,7 @@ import { createQRCodeContainer } from '../../common/QRCodeHelper.js';
 export class SessionManager {
   constructor(editor) {
     this.editor = editor;
+    this.demoMode = false;
   }
 
   /**
@@ -17,19 +18,29 @@ export class SessionManager {
    */
   async login() {
     const pw = document.getElementById('passwordInput').value;
-    
+
     try {
-      await fetchWithErrorHandling('/api/teacher/login', {
+      const result = await fetchWithErrorHandling('/api/teacher/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: pw })
       });
-      
+
+      // Store demo mode flag
+      this.demoMode = result.demoMode === true;
+
       // Success
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('editorScreen').style.display = 'block';
+
+      // Hide create option in demo mode
+      if (this.demoMode) {
+        // Disable create quiz button and session creation
+        document.getElementById('createBtn')?.setAttribute('disabled', 'disabled');
+      }
+
       await this.loadQuizList();
-      
+
     } catch (err) {
       // Error already shown as toast by fetchWithErrorHandling
       // Also show inline error
@@ -59,8 +70,12 @@ export class SessionManager {
 
       // Placeholder option that forces onchange event
       select.innerHTML = `<option value="_placeholder" selected disabled>${i18n.t('quiz_select_placeholder')}</option>`;
-      select.innerHTML += `<option value="">${i18n.t('quiz_create_new')}</option>`;
-      
+
+      // Hide "create new quiz" option in demo mode
+      if (!this.demoMode) {
+        select.innerHTML += `<option value="">${i18n.t('quiz_create_new')}</option>`;
+      }
+
       data.forEach(q => {
         const opt = document.createElement('option');
         opt.value = q.id;
@@ -177,6 +192,12 @@ export class SessionManager {
    * This happens before the first save
    */
   async createQuiz() {
+    // Block in demo mode
+    if (this.demoMode) {
+      toast.warning(i18n.t('demo_action_blocked'));
+      return;
+    }
+
     // Check for unsaved changes before creating new quiz
     if (!this.editor.changeTracker.confirmDiscardChanges()) {
       return; // User cancelled
@@ -257,6 +278,12 @@ export class SessionManager {
    * Create a new session for the current quiz
    */
   async createSession() {
+    // Block in demo mode
+    if (this.demoMode) {
+      toast.warning(i18n.t('demo_action_blocked'));
+      return;
+    }
+
     if (!this.editor.currentQuizId) {
       this.showMessage(i18n.t('editor_load_or_save_first'), true);
       return;
@@ -321,13 +348,19 @@ export class SessionManager {
    * Delete quiz with confirmation and backup option
    */
   async deleteQuiz() {
+    // Block in demo mode
+    if (this.demoMode) {
+      toast.warning(i18n.t('demo_action_blocked'));
+      return;
+    }
+
     const quizId = this.editor.currentQuizId;
-    
+
     if (!quizId) {
       toast.warning(i18n.t('editor_no_quiz_loaded'));
       return;
     }
-    
+
     try {
       // Load quiz for backup display
       const quiz = await fetchWithErrorHandling(`/api/teacher/quiz/${quizId}`);

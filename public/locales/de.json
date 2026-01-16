@@ -200,5 +200,10 @@
   "result_language_changed": "Sprache geändert - Ergebnis wird aktualisiert...",
 
   "qr_save_result": "Link scannen zum Speichern",
-  "qr_scan_to_join": "Scannen zum Teilnehmen"
+  "qr_scan_to_join": "Scannen zum Teilnehmen",
+
+  "demo_info_title": "Demo-Modus verfügbar",
+  "demo_info_text": "Mit dem Passwort \"demo\" erhalten Sie Lesezugang zum Beispiel-Quiz \"Unser Erdball\".",
+  "demo_save_hint": "Demo-Modus: Änderungen werden nicht gespeichert",
+  "demo_action_blocked": "Diese Aktion ist im Demo-Modus nicht verfügbar"
 }

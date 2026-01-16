@@ -33,10 +33,17 @@ class QuizValidationError extends BusinessLogicError {
   }
 }
 
-module.exports = { 
-  BusinessLogicError, 
+class DemoModeRestrictionError extends BusinessLogicError {
+  constructor(action = 'This action') {
+    super(`${action} is not available in demo mode`);
+  }
+}
+
+module.exports = {
+  BusinessLogicError,
   SessionNotOpenError,
-  SessionClosedError, 
+  SessionClosedError,
   SessionNotYetOpenError,
-  QuizValidationError 
+  QuizValidationError,
+  DemoModeRestrictionError
 };

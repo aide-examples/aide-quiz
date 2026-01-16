@@ -200,5 +200,10 @@
   "result_language_changed": "Language changed - refreshing result...",
 
   "qr_save_result": "Scan to save link",
-  "qr_scan_to_join": "Scan to join"
+  "qr_scan_to_join": "Scan to join",
+
+  "demo_info_title": "Demo mode available",
+  "demo_info_text": "Use password \"demo\" for read-only access to the sample quiz \"Unser Erdball\".",
+  "demo_save_hint": "Demo mode: changes are not saved",
+  "demo_action_blocked": "This action is not available in demo mode"
 }
