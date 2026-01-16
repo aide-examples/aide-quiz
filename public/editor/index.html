@@ -26,7 +26,7 @@
     <div id="loginScreen">
       <h1>🔒 Quiz Editor</h1>
       <h3 id="loginTitle">Teacher Login</h3>
-      <input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter')window.quizEditor.sessionManager.login()">
+      <input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter'&&window.quizEditor)window.quizEditor.sessionManager.login()">
       <button id="loginButton" class="btn btn-primary" onclick="window.quizEditor.sessionManager.login()" disabled>login</button>
       <div id="loginError" class="error-message"></div>
       <div id="demoInfo" class="demo-info">
