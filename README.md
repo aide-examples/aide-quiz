@@ -1,6 +1,8 @@
-# Quiz-App - Interactive Quiz Application
+# AIDE - Quiz
 
 Professional quiz application for educators with live session management, automatic grading, and comprehensive statistics. Try the [LIVE DEMO](https://followthescore.org/aide-quiz) ..
+
+This project is part of [AIDE examples](https://github.com/aide-examples) - a series of applications built almost completely with agentic coding.
 
 ---
 
